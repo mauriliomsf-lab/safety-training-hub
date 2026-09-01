@@ -1,24 +1,216 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { Page02, Page03, Page04, Page05 } from "@/components/training/pca-pages";
+import { Page06, Page07, Page08, Page09, Page10 } from "@/components/training/ppr-pages-a";
+import {
+  Page11,
+  Page12,
+  Page13,
+  Page14,
+  Page15,
+  Page16,
+} from "@/components/training/ppr-pages-b";
+import type { Track } from "@/components/training/kit";
+
+import protetores from "@/assets/pca-protetores.jpg";
+import respiradores from "@/assets/ppr-respiradores.jpg";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Treinamentos de Higiene Ocupacional — PCA e PPR" },
+      {
+        name: "description",
+        content:
+          "Módulo EAD de treinamentos de Higiene Ocupacional: Programa de Conservação Auditiva (PCA) e Programa de Proteção Respiratória (PPR).",
+      },
+      { property: "og:title", content: "Treinamentos de Higiene Ocupacional — PCA e PPR" },
+      {
+        property: "og:description",
+        content:
+          "Treinamento EAD em duas trilhas: Conservação Auditiva e Proteção Respiratória, com termo de responsabilidade.",
+      },
+    ],
+  }),
+  component: TreinamentoApp,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+const PCA_SEQ = [2, 3, 4, 5];
+const PPR_SEQ = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+function TreinamentoApp() {
+  const [track, setTrack] = useState<Track | null>(null);
+  const [nome, setNome] = useState("");
+  const [matricula, setMatricula] = useState("");
+  const [page, setPage] = useState(1);
+
+  const seq = track === "PCA" ? PCA_SEQ : PPR_SEQ;
+
+  const start = () => {
+    if (!track) return;
+    setPage(seq[0]);
+  };
+
+  const next = () => {
+    const i = seq.indexOf(page);
+    if (i >= 0 && i < seq.length - 1) {
+      setPage(seq[i + 1]);
+    } else {
+      // fim da trilha: volta à seleção de módulo
+      setTrack(null);
+      setNome("");
+      setMatricula("");
+      setPage(1);
+    }
+  };
+
+  if (page === 1) {
+    return (
+      <SelecaoModulo
+        track={track}
+        setTrack={setTrack}
+        nome={nome}
+        setNome={setNome}
+        matricula={matricula}
+        setMatricula={setMatricula}
+        onStart={start}
       />
+    );
+  }
+
+  switch (page) {
+    case 2:
+      return <Page02 onNext={next} />;
+    case 3:
+      return <Page03 onNext={next} />;
+    case 4:
+      return <Page04 onNext={next} />;
+    case 5:
+      return <Page05 nome={nome} matricula={matricula} onNext={next} />;
+    case 6:
+      return <Page06 onNext={next} />;
+    case 7:
+      return <Page07 onNext={next} />;
+    case 8:
+      return <Page08 onNext={next} />;
+    case 9:
+      return <Page09 onNext={next} />;
+    case 10:
+      return <Page10 onNext={next} />;
+    case 11:
+      return <Page11 onNext={next} />;
+    case 12:
+      return <Page12 onNext={next} />;
+    case 13:
+      return <Page13 onNext={next} />;
+    case 14:
+      return <Page14 onNext={next} />;
+    case 15:
+      return <Page15 onNext={next} />;
+    case 16:
+      return <Page16 nome={nome} matricula={matricula} onNext={next} />;
+    default:
+      return null;
+  }
+}
+
+function SelecaoModulo({
+  track,
+  setTrack,
+  nome,
+  setNome,
+  matricula,
+  setMatricula,
+  onStart,
+}: {
+  track: Track | null;
+  setTrack: (t: Track) => void;
+  nome: string;
+  setNome: (v: string) => void;
+  matricula: string;
+  setMatricula: (v: string) => void;
+  onStart: () => void;
+}) {
+  const opcoes: Array<{ id: Track; label: string; img: string; alt: string }> = [
+    {
+      id: "PCA",
+      label: "Programa Conservação auditiva",
+      img: protetores,
+      alt: "Protetores auditivos tipo plug e abafador",
+    },
+    {
+      id: "PPR",
+      label: "Programa de Proteção Respiratória",
+      img: respiradores,
+      alt: "Respiradores descartável e semifacial",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-panel">
+      <header className="bg-brand px-5 py-6 text-brand-foreground">
+        <h1 className="font-display text-xl leading-tight font-semibold tracking-tight sm:text-3xl">
+          MÓDULOS - Treinamentos Higiene Ocupacional
+        </h1>
+      </header>
+
+      <main className="mx-auto w-full max-w-3xl px-4 py-10">
+        <div className="flex flex-wrap items-start justify-center gap-8">
+          {opcoes.map((o) => (
+            <div key={o.id} className="flex w-40 flex-col items-center gap-3 sm:w-52">
+              <button
+                type="button"
+                onClick={() => setTrack(o.id)}
+                aria-pressed={track === o.id}
+                className={`size-40 overflow-hidden rounded-full border-4 shadow-circle transition-colors sm:size-52 ${
+                  track === o.id ? "border-brand" : "border-border"
+                }`}
+              >
+                <img
+                  src={o.img}
+                  alt={o.alt}
+                  width={768}
+                  height={768}
+                  className="size-full object-cover"
+                />
+              </button>
+              <p className="text-center text-sm font-semibold text-brand-deep">{o.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-10 max-w-md space-y-4">
+          <label className="block">
+            <span className="mb-1 block text-sm font-semibold text-foreground">Nome</span>
+            <input
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+            />
+          </label>
+          <label className="block">
+            <span className="mb-1 block text-sm font-semibold text-foreground">Matrícula</span>
+            <input
+              value={matricula}
+              onChange={(e) => setMatricula(e.target.value)}
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+            />
+          </label>
+
+          <div className="flex justify-center pt-4">
+            <button
+              type="button"
+              onClick={onStart}
+              aria-label="Avançar"
+              className="inline-flex size-16 items-center justify-center rounded-full bg-brand text-2xl text-brand-foreground shadow-circle transition-opacity disabled:opacity-40"
+              disabled={!track}
+            >
+              ▶
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
