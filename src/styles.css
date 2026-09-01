@@ -19,6 +19,22 @@
  */
 
 @theme inline {
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+  --color-pca: var(--pca);
+  --color-pca-soft: var(--pca-soft);
+  --color-ppr: var(--ppr);
+  --color-ppr-soft: var(--ppr-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-ok: var(--ok);
+  --color-panel: var(--panel);
+  --shadow-panel: 0 10px 30px -12px oklch(0.3 0.08 250 / 0.35);
+  --shadow-circle: 0 8px 20px -6px oklch(0.3 0.08 250 / 0.45);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -62,7 +78,19 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
+  --brand: oklch(0.52 0.13 240);
+  --brand-foreground: oklch(0.99 0.005 240);
+  --brand-deep: oklch(0.35 0.1 250);
+  --brand-soft: oklch(0.94 0.03 240);
+  --pca: oklch(0.55 0.13 235);
+  --pca-soft: oklch(0.95 0.03 235);
+  --ppr: oklch(0.52 0.11 195);
+  --ppr-soft: oklch(0.95 0.03 195);
+  --warn: oklch(0.72 0.16 70);
+  --warn-soft: oklch(0.96 0.05 85);
+  --ok: oklch(0.6 0.15 150);
+  --panel: oklch(0.985 0.005 240);
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
