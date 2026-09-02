@@ -49,13 +49,14 @@ function TreinamentoApp() {
 
   const start = () => {
     if (!track) return;
-    setPage(seq[0]);
+    setPage(seq[0] ?? 1);
   };
 
   const next = () => {
     const i = seq.indexOf(page);
-    if (i >= 0 && i < seq.length - 1) {
-      setPage(seq[i + 1]);
+    const proximo = i >= 0 ? seq[i + 1] : undefined;
+    if (proximo !== undefined) {
+      setPage(proximo);
     } else {
       // fim da trilha: volta à seleção de módulo
       setTrack(null);
