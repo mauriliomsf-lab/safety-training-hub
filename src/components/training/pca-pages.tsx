@@ -299,32 +299,69 @@ export const PCA_RESULTADO = [
   "Necessária troca imediata, por condição verificada com o usuário",
 ];
 
-function SimNao({ pergunta }: { pergunta: string }) {
+function SimNao({
+  pergunta,
+  valor,
+  onSelect,
+  enabled,
+}: {
+  pergunta: string;
+  valor?: boolean;
+  onSelect: (v: boolean) => void;
+  enabled: boolean;
+}) {
   return (
     <div className="flex items-start gap-3 border-b border-border/60 py-3 last:border-0">
       <div className="flex gap-2">
-        <span className="inline-flex size-8 items-center justify-center rounded-full border border-ok/50 text-ok">
+        <button
+          type="button"
+          disabled={!enabled}
+          aria-pressed={valor === true}
+          onClick={() => onSelect(true)}
+          aria-label="Sim"
+          className={`inline-flex size-8 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+            valor === true ? "border-ok bg-ok text-brand-foreground" : "border-ok/50 text-ok"
+          }`}
+        >
           ✓
-        </span>
-        <span className="inline-flex size-8 items-center justify-center rounded-full border border-destructive/50 text-destructive">
+        </button>
+        <button
+          type="button"
+          disabled={!enabled}
+          aria-pressed={valor === false}
+          onClick={() => onSelect(false)}
+          aria-label="Não"
+          className={`inline-flex size-8 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+            valor === false
+              ? "border-destructive bg-destructive text-brand-foreground"
+              : "border-destructive/50 text-destructive"
+          }`}
+        >
           ✕
-        </span>
+        </button>
       </div>
       <p className="text-sm leading-relaxed">{pergunta}</p>
     </div>
   );
 }
 
-export function Page04({ onNext }: PageProps) {
+export function Page04({ onNext, onBackToStart }: PageProps) {
+  const liberado = useReadingTimer(6000);
+  const podeVoltar = liberado;
+  const [respostas, setRespostas] = useState<Record<string, boolean>>({});
+  const todas = [...PCA_TESTE, ...PCA_PARECER];
+  const completo = todas.every((p) => respostas[p] !== undefined);
+  const marcar = (p: string) => (v: boolean) => setRespostas((r) => ({ ...r, [p]: v }));
+
   return (
     <PageShell
       title={TITLE}
       track="PCA"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={4} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!completo} />
         </>
       }
     >
