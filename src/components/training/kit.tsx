@@ -22,7 +22,7 @@ export function useReadingTimer(ms: number, active = true) {
 }
 
 /** Campo de assinatura digital (dedo, caneta digital ou mouse). */
-export function SignaturePad({
+export function useSignaturePad({
   onChange,
 }: {
   onChange: (hasSignature: boolean) => void;
@@ -80,7 +80,7 @@ export function SignaturePad({
 export function SignatureCanvas({
   pad,
 }: {
-  pad: ReturnType<typeof SignaturePad>;
+  pad: ReturnType<typeof useSignaturePad>;
 }) {
   return (
     <canvas
