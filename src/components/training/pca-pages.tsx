@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   AdvanceButton,
   BackToStartButton,
@@ -7,7 +9,10 @@ import {
   PageShell,
   Panel,
   SectionTitle,
+  SignatureCanvas,
   SubTitle,
+  useReadingTimer,
+  useSignaturePad,
   type PageProps,
 } from "./kit";
 
@@ -19,14 +24,15 @@ import protetores from "@/assets/pca-protetores.jpg";
 const TITLE = "Treinamento - Programa Conservação auditiva";
 
 /* ------------------------------- Página 2 ------------------------------- */
-export function Page02({ onNext }: PageProps) {
+export function Page02({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PCA"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={2} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -122,7 +128,21 @@ const ESCALA: Array<[number, string]> = [
   [10, ""],
 ];
 
+const ATENUACOES = [16, 20, 21];
+
 export function Page03({ onNext }: PageProps) {
+  const [medido, setMedido] = useState("");
+  const [atenuacao, setAtenuacao] = useState<number | null>(null);
+  const medidoNum = Number(medido.replace(",", "."));
+  const medidoValido = medido.trim() !== "" && Number.isFinite(medidoNum);
+  const atenuado =
+    medidoValido && atenuacao !== null ? String(Math.round((medidoNum - atenuacao) * 100) / 100) : "";
+  const podeAvancar = medidoValido && atenuacao !== null;
+
+  useEffect(() => {
+    if (!medidoValido) setAtenuacao(null);
+  }, [medidoValido]);
+
   return (
     <PageShell
       title={TITLE}
@@ -130,7 +150,7 @@ export function Page03({ onNext }: PageProps) {
       footer={
         <>
           <PageNumber n={3} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!podeAvancar} />
         </>
       }
     >
@@ -180,21 +200,31 @@ export function Page03({ onNext }: PageProps) {
           <SubTitle>Valor medido</SubTitle>
           <input
             type="text"
-            inputMode="numeric"
+            inputMode="decimal"
             placeholder="dB(A)"
+            value={medido}
+            onChange={(e) => setMedido(e.target.value)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
         </Panel>
         <Panel tone="brand">
           <SubTitle>Atenuação do protetor</SubTitle>
           <div className="flex flex-wrap gap-2">
-            {["16 dB", "20 dB", "21 dB"].map((v) => (
-              <span
+            {ATENUACOES.map((v) => (
+              <button
                 key={v}
-                className="rounded-full border border-brand/40 bg-card px-3 py-1.5 text-xs font-semibold text-brand-deep"
+                type="button"
+                disabled={!medidoValido}
+                aria-pressed={atenuacao === v}
+                onClick={() => setAtenuacao(v)}
+                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                  atenuacao === v
+                    ? "border-brand bg-brand text-brand-foreground"
+                    : "border-brand/40 bg-card text-brand-deep"
+                }`}
               >
-                {v}
-              </span>
+                {v} dB
+              </button>
             ))}
           </div>
         </Panel>
@@ -204,6 +234,7 @@ export function Page03({ onNext }: PageProps) {
             type="text"
             readOnly
             placeholder="dB(A)"
+            value={atenuado}
             className="w-full rounded-md border border-input bg-muted px-3 py-2 text-sm"
           />
         </Panel>
