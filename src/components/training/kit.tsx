@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 export type Track = "PCA" | "PPR";
 
@@ -6,6 +6,95 @@ export type PageProps = {
   onNext: () => void;
   onBackToStart?: () => void;
 };
+
+/** Contagem de tempo mínimo de leitura, totalmente invisível ao usuário. */
+export function useReadingTimer(ms: number, active = true) {
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    if (!active) {
+      setDone(false);
+      return;
+    }
+    const id = setTimeout(() => setDone(true), ms);
+    return () => clearTimeout(id);
+  }, [ms, active]);
+  return done;
+}
+
+/** Campo de assinatura digital (dedo, caneta digital ou mouse). */
+export function useSignaturePad({
+  onChange,
+}: {
+  onChange: (hasSignature: boolean) => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const drawing = useRef(false);
+
+  const point = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+    const r = canvas.getBoundingClientRect();
+    return {
+      x: ((e.clientX - r.left) / r.width) * canvas.width,
+      y: ((e.clientY - r.top) / r.height) * canvas.height,
+    };
+  };
+
+  const start = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const ctx = canvasRef.current?.getContext("2d");
+    const p = point(e);
+    if (!ctx || !p) return;
+    drawing.current = true;
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#0f172a";
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    onChange(true);
+  };
+
+  const move = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!drawing.current) return;
+    const ctx = canvasRef.current?.getContext("2d");
+    const p = point(e);
+    if (!ctx || !p) return;
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+  };
+
+  const end = () => {
+    drawing.current = false;
+  };
+
+  const clear = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    onChange(false);
+  }, [onChange]);
+
+  return { canvasRef, clear, start, move, end };
+}
+
+export function SignatureCanvas({
+  pad,
+}: {
+  pad: ReturnType<typeof useSignaturePad>;
+}) {
+  return (
+    <canvas
+      ref={pad.canvasRef}
+      width={900}
+      height={240}
+      onPointerDown={pad.start}
+      onPointerMove={pad.move}
+      onPointerUp={pad.end}
+      onPointerLeave={pad.end}
+      className="h-40 w-full touch-none rounded-lg border-2 border-dashed border-brand/40 bg-background"
+    />
+  );
+}
 
 export function PageShell({
   title,
