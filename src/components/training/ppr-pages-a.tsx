@@ -449,16 +449,47 @@ export const SUBSTANCIAS = {
   ],
 };
 
-export function Page10({ onNext }: PageProps) {
+type Lado = "pintura" | "solda";
+
+export function Page10({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
+  const [lado, setLado] = useState<Lado | null>(null);
+  const [concentracao, setConcentracao] = useState("");
+  const [substancia, setSubstancia] = useState<string | null>(null);
+  const [fpa, setFpa] = useState<number | null>(null);
+  const [resultado, setResultado] = useState<"aprovado" | "reprovado" | null>(null);
+
+  const conc = Number(concentracao.replace(",", "."));
+  const concValida = concentracao.trim() !== "" && Number.isFinite(conc);
+  const limite = useMemo(() => {
+    if (!lado || !substancia) return null;
+    return SUBSTANCIAS[lado].find((s) => s.nome === substancia)?.limite ?? null;
+  }, [lado, substancia]);
+  const fpmr = concValida && limite ? conc / limite : null;
+
+  useEffect(() => {
+    setSubstancia(null);
+    setResultado(null);
+  }, [lado]);
+  useEffect(() => {
+    setResultado(null);
+  }, [concentracao, substancia, fpa]);
+
+  const podeCalcular = concValida && limite !== null && fpa !== null;
+  const calcular = () => {
+    if (!podeCalcular || fpmr === null || fpa === null) return;
+    setResultado(fpmr < fpa ? "aprovado" : "reprovado");
+  };
+
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={10} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={resultado === null} />
         </>
       }
     >
