@@ -542,19 +542,21 @@ export function TermoPage({
 
       <SectionTitle>Assinatura</SectionTitle>
       <Panel>
-        <div className="h-40 w-full rounded-lg border-2 border-dashed border-brand/40 bg-background" />
+        <SignatureCanvas pad={pad} />
         <div className="mt-3 flex flex-wrap gap-3">
           <button
             type="button"
-            disabled
-            className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground"
+            disabled={!assinado}
+            onClick={pad.clear}
+            className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             LIMPAR ASSINATURA
           </button>
           <button
             type="button"
-            disabled
-            className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground opacity-40"
+            disabled={!assinado}
+            onClick={() => setConcluido(true)}
+            className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             Confirmar assinatura
           </button>
