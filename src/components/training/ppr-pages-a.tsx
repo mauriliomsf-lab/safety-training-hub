@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from "react";
+
 import {
   AdvanceButton,
   BackToStartButton,
@@ -9,6 +11,7 @@ import {
   Panel,
   SectionTitle,
   SubTitle,
+  useReadingTimer,
   type PageProps,
 } from "./kit";
 
@@ -21,14 +24,15 @@ import respiradores from "@/assets/ppr-respiradores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------- Página 6 ------------------------------- */
-export function Page06({ onNext }: PageProps) {
+export function Page06({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={6} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -125,6 +129,15 @@ export const AGENTES = [
 ];
 
 export function Page07({ onNext }: PageProps) {
+  const [revelado, setRevelado] = useState<string | null>(null);
+  const [liberado, setLiberado] = useState(false);
+
+  useEffect(() => {
+    if (!revelado) return;
+    const id = setTimeout(() => setLiberado(true), 4000);
+    return () => clearTimeout(id);
+  }, [revelado]);
+
   return (
     <PageShell
       title={TITLE}
@@ -132,7 +145,7 @@ export function Page07({ onNext }: PageProps) {
       footer={
         <>
           <PageNumber n={7} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!liberado} />
         </>
       }
     >
@@ -148,7 +161,18 @@ export function Page07({ onNext }: PageProps) {
       <SectionTitle>Como os agentes químicos existem no ambiente de trabalho?</SectionTitle>
       <div className="flex flex-wrap justify-center gap-3">
         {AGENTES.map((a) => (
-          <CircleItem key={a.nome} label={a.nome} />
+          <CircleItem
+            key={a.nome}
+            label={a.nome}
+            active={revelado === a.nome}
+            onClick={() => setRevelado(a.nome)}
+          >
+            {revelado === a.nome ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">{a.texto}</span>
+            ) : (
+              <span className="relative z-10">{a.nome}</span>
+            )}
+          </CircleItem>
         ))}
       </div>
       <Panel className="mt-4">
@@ -174,14 +198,15 @@ export function Page07({ onNext }: PageProps) {
 }
 
 /* ------------------------------- Página 8 ------------------------------- */
-export function Page08({ onNext }: PageProps) {
+export function Page08({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={8} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -273,16 +298,35 @@ export const TEXTO_SEMI_DESCARTAVEL =
 export const TEXTO_MANUTENCAO_INFO =
   "Manutenção: os respiradores de manutenção possuem peças de reposição (filtros mecânicos, cartuchos químicos, válvulas, tirantes e diafragma de voz) que devem ser substituídas conforme a indicação do fabricante e sempre que apresentarem defeito.";
 
-export function Page09({ onNext }: PageProps) {
+function useTimedFlag(ativo: boolean, ms: number) {
+  const [pronto, setPronto] = useState(false);
+  useEffect(() => {
+    if (!ativo) return;
+    const id = setTimeout(() => setPronto(true), ms);
+    return () => clearTimeout(id);
+  }, [ativo, ms]);
+  return pronto;
+}
+
+export function Page09({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
+  const [facialAberta, setFacialAberta] = useState(false);
+  const [duplaAberta, setDuplaAberta] = useState(false);
+  const [infoAberta, setInfoAberta] = useState(false);
+  const okFacial = useTimedFlag(facialAberta, 4000);
+  const okDupla = useTimedFlag(duplaAberta, 4000);
+  const okInfo = useTimedFlag(infoAberta, 4000);
+  const podeAvancar = okFacial && okDupla && okInfo;
+
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={9} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!podeAvancar} />
         </>
       }
     >
@@ -298,12 +342,50 @@ export function Page09({ onNext }: PageProps) {
       <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_1fr]">
         <Figure src={modelos} alt="Modelos de EPR: facial inteira, semi-facial e descartável" />
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <CircleItem label="Facial inteira" />
-          <CircleItem label="Semi-facial" />
-          <CircleItem label="Descartáveis" />
-          <span className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-lg font-bold text-brand-foreground shadow-circle">
+          <CircleItem
+            label="Facial inteira"
+            active={facialAberta}
+            onClick={() => setFacialAberta(true)}
+          >
+            {facialAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_FACIAL_INTEIRA}
+              </span>
+            ) : (
+              "Facial inteira"
+            )}
+          </CircleItem>
+          <CircleItem label="Semi-facial" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
+            {duplaAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_SEMI_DESCARTAVEL}
+              </span>
+            ) : (
+              "Semi-facial"
+            )}
+          </CircleItem>
+          <CircleItem label="Descartáveis" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
+            {duplaAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_SEMI_DESCARTAVEL}
+              </span>
+            ) : (
+              "Descartáveis"
+            )}
+          </CircleItem>
+          <button
+            type="button"
+            aria-label="Informações sobre peças de reposição"
+            onClick={() => setInfoAberta(true)}
+            className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-lg font-bold text-brand-foreground shadow-circle"
+          >
             i
-          </span>
+          </button>
+          {infoAberta ? (
+            <Panel tone="ppr" className="w-full">
+              {TEXTO_MANUTENCAO_INFO}
+            </Panel>
+          ) : null}
         </div>
       </div>
 
