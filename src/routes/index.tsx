@@ -44,11 +44,20 @@ function TreinamentoApp() {
   const [nome, setNome] = useState("");
   const [matricula, setMatricula] = useState("");
   const [page, setPage] = useState(1);
+  const [respostasPPR, setRespostasPPR] = useState<Record<number, number>>({});
 
   const seq = track === "PCA" ? PCA_SEQ : PPR_SEQ;
 
+  const reiniciarSessao = () => {
+    setTrack(null);
+    setNome("");
+    setMatricula("");
+    setRespostasPPR({});
+    setPage(1);
+  };
+
   const start = () => {
-    if (!track) return;
+    if (!track || !nome.trim() || !matricula.trim()) return;
     setPage(seq[0] ?? 1);
   };
 
@@ -58,12 +67,16 @@ function TreinamentoApp() {
     if (proximo !== undefined) {
       setPage(proximo);
     } else {
-      // fim da trilha: volta à seleção de módulo
-      setTrack(null);
-      setNome("");
-      setMatricula("");
-      setPage(1);
+      reiniciarSessao();
     }
+  };
+
+  const responder = (numero: number, opcao: number) =>
+    setRespostasPPR((r) => ({ ...r, [numero]: opcao }));
+
+  const reiniciarTeste = () => {
+    setRespostasPPR({});
+    setPage(14);
   };
 
   if (page === 1) {
@@ -82,35 +95,42 @@ function TreinamentoApp() {
 
   switch (page) {
     case 2:
-      return <Page02 onNext={next} />;
+      return <Page02 onNext={next} onBackToStart={reiniciarSessao} />;
     case 3:
       return <Page03 onNext={next} />;
     case 4:
-      return <Page04 onNext={next} />;
+      return <Page04 onNext={next} onBackToStart={reiniciarSessao} />;
     case 5:
-      return <Page05 nome={nome} matricula={matricula} onNext={next} />;
+      return <Page05 nome={nome} matricula={matricula} onNext={reiniciarSessao} />;
     case 6:
-      return <Page06 onNext={next} />;
+      return <Page06 onNext={next} onBackToStart={reiniciarSessao} />;
     case 7:
       return <Page07 onNext={next} />;
     case 8:
-      return <Page08 onNext={next} />;
+      return <Page08 onNext={next} onBackToStart={reiniciarSessao} />;
     case 9:
-      return <Page09 onNext={next} />;
+      return <Page09 onNext={next} onBackToStart={reiniciarSessao} />;
     case 10:
-      return <Page10 onNext={next} />;
+      return <Page10 onNext={next} onBackToStart={reiniciarSessao} />;
     case 11:
-      return <Page11 onNext={next} />;
+      return <Page11 onNext={next} onBackToStart={reiniciarSessao} />;
     case 12:
       return <Page12 onNext={next} />;
     case 13:
-      return <Page13 onNext={next} />;
+      return <Page13 onNext={next} onBackToStart={reiniciarSessao} />;
     case 14:
-      return <Page14 onNext={next} />;
+      return <Page14 onNext={next} respostas={respostasPPR} onResponder={responder} />;
     case 15:
-      return <Page15 onNext={next} />;
+      return (
+        <Page15
+          onNext={next}
+          respostas={respostasPPR}
+          onResponder={responder}
+          onReiniciarTeste={reiniciarTeste}
+        />
+      );
     case 16:
-      return <Page16 nome={nome} matricula={matricula} onNext={next} />;
+      return <Page16 nome={nome} matricula={matricula} onNext={reiniciarSessao} />;
     default:
       return null;
   }
