@@ -387,7 +387,13 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
           Conhecendo bem meu(s) protetor (s) auditivo(s) marcarei (✓) para “sim” e (✕) para “não”:
         </p>
         {PCA_TESTE.map((p) => (
-          <SimNao key={p} pergunta={p} />
+          <SimNao
+            key={p}
+            pergunta={p}
+            valor={respostas[p]}
+            onSelect={marcar(p)}
+            enabled={liberado}
+          />
         ))}
       </Panel>
 
@@ -419,7 +425,13 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
           Meu protetor foi selecionado por mim durante este treinamento, sendo concluído que:
         </p>
         {PCA_PARECER.map((p) => (
-          <SimNao key={p} pergunta={p} />
+          <SimNao
+            key={p}
+            pergunta={p}
+            valor={respostas[p]}
+            onSelect={marcar(p)}
+            enabled={liberado}
+          />
         ))}
       </Panel>
 
