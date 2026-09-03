@@ -485,16 +485,31 @@ export function TermoPage({
   pageNumber: number;
   onNext: () => void;
 }) {
+  const [assinado, setAssinado] = useState(false);
+  const [concluido, setConcluido] = useState(false);
+  const pad = useSignaturePad({ onChange: setAssinado });
+
+  useEffect(() => {
+    if (!concluido) return;
+    const id = setTimeout(onNext, 3000);
+    return () => clearTimeout(id);
+  }, [concluido, onNext]);
+
+  if (concluido) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-panel px-6">
+        <p className="font-display text-center text-xl font-semibold text-brand-deep sm:text-3xl">
+          conclusão do treinamento
+        </p>
+      </div>
+    );
+  }
+
   return (
     <PageShell
       title={track === "PCA" ? TITLE : "Treinamento de proteção respiratória"}
       track={track}
-      footer={
-        <>
-          <PageNumber n={pageNumber} />
-          <AdvanceButton onClick={onNext} label="Concluir" />
-        </>
-      }
+      footer={<PageNumber n={pageNumber} />}
     >
       <SectionTitle>Termo de Responsabilidade</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-[1fr_260px]">
