@@ -206,16 +206,18 @@ function SelecaoModulo({
             <span className="mb-1 block text-sm font-semibold text-foreground">Nome</span>
             <input
               value={nome}
+              disabled={!track}
               onChange={(e) => setNome(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60"
             />
           </label>
           <label className="block">
             <span className="mb-1 block text-sm font-semibold text-foreground">Matrícula</span>
             <input
               value={matricula}
+              disabled={!track}
               onChange={(e) => setMatricula(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60"
             />
           </label>
 
@@ -225,7 +227,7 @@ function SelecaoModulo({
               onClick={onStart}
               aria-label="Avançar"
               className="inline-flex size-16 items-center justify-center rounded-full bg-brand text-2xl text-brand-foreground shadow-circle transition-opacity disabled:opacity-40"
-              disabled={!track}
+              disabled={!track || !nome.trim() || !matricula.trim()}
             >
               ▶
             </button>
