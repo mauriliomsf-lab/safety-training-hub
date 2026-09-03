@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   AdvanceButton,
   BackToStartButton,
@@ -8,6 +10,7 @@ import {
   Panel,
   SectionTitle,
   SubTitle,
+  useReadingTimer,
   type PageProps,
 } from "./kit";
 import { NR6_ITENS, TermoPage } from "./pca-pages";
@@ -20,14 +23,15 @@ import respiradores from "@/assets/ppr-respiradores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------ Página 11 ------------------------------- */
-export function Page11({ onNext }: PageProps) {
+export function Page11({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={11} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -223,14 +227,15 @@ export function Page12({ onNext }: PageProps) {
 }
 
 /* ------------------------------ Página 13 ------------------------------- */
-export function Page13({ onNext }: PageProps) {
+export function Page13({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={13} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -402,17 +407,39 @@ function UsoIncorretoBlocos() {
   );
 }
 
-function PerguntaEstatica({ p }: { p: Pergunta }) {
+function PerguntaTeste({
+  p,
+  resposta,
+  onSelect,
+  enabled,
+}: {
+  p: Pergunta;
+  resposta?: number;
+  onSelect: (i: number) => void;
+  enabled: boolean;
+}) {
   return (
     <Panel className="mb-3">
       <SubTitle>
         {p.numero}. {p.enunciado}
       </SubTitle>
       <ul className="space-y-2 text-sm">
-        {p.opcoes.map((o) => (
-          <li key={o} className="flex items-start gap-3">
-            <span className="mt-0.5 size-5 shrink-0 rounded-full border border-brand/50" />
-            <span>{o}</span>
+        {p.opcoes.map((o, i) => (
+          <li key={o}>
+            <button
+              type="button"
+              disabled={!enabled}
+              aria-pressed={resposta === i}
+              onClick={() => onSelect(i)}
+              className="flex w-full items-start gap-3 text-left disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <span
+                className={`mt-0.5 size-5 shrink-0 rounded-full border ${
+                  resposta === i ? "border-brand bg-brand" : "border-brand/50"
+                }`}
+              />
+              <span>{o}</span>
+            </button>
           </li>
         ))}
       </ul>
@@ -420,29 +447,71 @@ function PerguntaEstatica({ p }: { p: Pergunta }) {
   );
 }
 
-export function Page14({ onNext }: PageProps) {
+export type TesteProps = {
+  respostas: Record<number, number>;
+  onResponder: (numero: number, opcao: number) => void;
+};
+
+export function Page14({ onNext, respostas, onResponder }: PageProps & TesteProps) {
+  const liberado = useReadingTimer(6000);
+  const perguntas = PERGUNTAS_PPR.slice(0, 3);
+  const completo = perguntas.every((p) => respostas[p.numero] !== undefined);
+
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
           <PageNumber n={14} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!completo} />
         </>
       }
     >
       <UsoIncorretoBlocos />
       <SectionTitle>Teste de conhecimento</SectionTitle>
-      {PERGUNTAS_PPR.slice(0, 3).map((p) => (
-        <PerguntaEstatica key={p.numero} p={p} />
+      {perguntas.map((p) => (
+        <PerguntaTeste
+          key={p.numero}
+          p={p}
+          resposta={respostas[p.numero]}
+          onSelect={(i) => onResponder(p.numero, i)}
+          enabled={liberado}
+        />
       ))}
     </PageShell>
   );
 }
 
-export function Page15({ onNext }: PageProps) {
+export function Page15({
+  onNext,
+  respostas,
+  onResponder,
+  onReiniciarTeste,
+}: PageProps & TesteProps & { onReiniciarTeste: () => void }) {
+  const liberado = useReadingTimer(6000);
+  const perguntas = PERGUNTAS_PPR.slice(3);
+  const completo = PERGUNTAS_PPR.every((p) => respostas[p.numero] !== undefined);
+  const acertos = PERGUNTAS_PPR.filter((p) => respostas[p.numero] === p.correta).length;
+  const aprovado = completo && acertos >= 5;
+  const reprovado = completo && acertos < 5;
+
+  useEffect(() => {
+    if (!reprovado) return;
+    const id = setTimeout(onReiniciarTeste, 3000);
+    return () => clearTimeout(id);
+  }, [reprovado, onReiniciarTeste]);
+
+  if (reprovado) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-panel px-6">
+        <p className="font-display text-center text-lg font-semibold text-brand-deep sm:text-2xl">
+          Algumas opções ainda precisam ser melhor assimiladas! Vamos recomeçar?
+        </p>
+      </div>
+    );
+  }
+
   return (
     <PageShell
       title={TITLE}
@@ -450,17 +519,27 @@ export function Page15({ onNext }: PageProps) {
       footer={
         <>
           <PageNumber n={15} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!aprovado} />
         </>
       }
     >
       <UsoIncorretoBlocos />
       <SectionTitle>Teste de conhecimento</SectionTitle>
-      {PERGUNTAS_PPR.slice(3).map((p) => (
-        <PerguntaEstatica key={p.numero} p={p} />
+      {perguntas.map((p) => (
+        <PerguntaTeste
+          key={p.numero}
+          p={p}
+          resposta={respostas[p.numero]}
+          onSelect={(i) => onResponder(p.numero, i)}
+          enabled={liberado}
+        />
       ))}
       <SectionTitle>Resultado final</SectionTitle>
-      <Panel tone="brand">Resultado final do teste de conhecimento.</Panel>
+      <Panel tone="brand">
+        {aprovado
+          ? `Nota obtida: ${acertos} de 6 acertos.`
+          : "Responda às 6 perguntas do teste de conhecimento."}
+      </Panel>
     </PageShell>
   );
 }

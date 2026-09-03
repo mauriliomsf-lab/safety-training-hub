@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from "react";
+
 import {
   AdvanceButton,
   BackToStartButton,
@@ -9,6 +11,7 @@ import {
   Panel,
   SectionTitle,
   SubTitle,
+  useReadingTimer,
   type PageProps,
 } from "./kit";
 
@@ -21,14 +24,15 @@ import respiradores from "@/assets/ppr-respiradores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------- Página 6 ------------------------------- */
-export function Page06({ onNext }: PageProps) {
+export function Page06({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={6} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -125,6 +129,15 @@ export const AGENTES = [
 ];
 
 export function Page07({ onNext }: PageProps) {
+  const [revelado, setRevelado] = useState<string | null>(null);
+  const [liberado, setLiberado] = useState(false);
+
+  useEffect(() => {
+    if (!revelado) return;
+    const id = setTimeout(() => setLiberado(true), 4000);
+    return () => clearTimeout(id);
+  }, [revelado]);
+
   return (
     <PageShell
       title={TITLE}
@@ -132,7 +145,7 @@ export function Page07({ onNext }: PageProps) {
       footer={
         <>
           <PageNumber n={7} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!liberado} />
         </>
       }
     >
@@ -148,7 +161,18 @@ export function Page07({ onNext }: PageProps) {
       <SectionTitle>Como os agentes químicos existem no ambiente de trabalho?</SectionTitle>
       <div className="flex flex-wrap justify-center gap-3">
         {AGENTES.map((a) => (
-          <CircleItem key={a.nome} label={a.nome} />
+          <CircleItem
+            key={a.nome}
+            label={a.nome}
+            active={revelado === a.nome}
+            onClick={() => setRevelado(a.nome)}
+          >
+            {revelado === a.nome ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">{a.texto}</span>
+            ) : (
+              <span className="relative z-10">{a.nome}</span>
+            )}
+          </CircleItem>
         ))}
       </div>
       <Panel className="mt-4">
@@ -174,14 +198,15 @@ export function Page07({ onNext }: PageProps) {
 }
 
 /* ------------------------------- Página 8 ------------------------------- */
-export function Page08({ onNext }: PageProps) {
+export function Page08({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={8} />
           <AdvanceButton onClick={onNext} />
         </>
@@ -273,16 +298,35 @@ export const TEXTO_SEMI_DESCARTAVEL =
 export const TEXTO_MANUTENCAO_INFO =
   "Manutenção: os respiradores de manutenção possuem peças de reposição (filtros mecânicos, cartuchos químicos, válvulas, tirantes e diafragma de voz) que devem ser substituídas conforme a indicação do fabricante e sempre que apresentarem defeito.";
 
-export function Page09({ onNext }: PageProps) {
+function useTimedFlag(ativo: boolean, ms: number) {
+  const [pronto, setPronto] = useState(false);
+  useEffect(() => {
+    if (!ativo) return;
+    const id = setTimeout(() => setPronto(true), ms);
+    return () => clearTimeout(id);
+  }, [ativo, ms]);
+  return pronto;
+}
+
+export function Page09({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
+  const [facialAberta, setFacialAberta] = useState(false);
+  const [duplaAberta, setDuplaAberta] = useState(false);
+  const [infoAberta, setInfoAberta] = useState(false);
+  const okFacial = useTimedFlag(facialAberta, 4000);
+  const okDupla = useTimedFlag(duplaAberta, 4000);
+  const okInfo = useTimedFlag(infoAberta, 4000);
+  const podeAvancar = okFacial && okDupla && okInfo;
+
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={9} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={!podeAvancar} />
         </>
       }
     >
@@ -298,12 +342,50 @@ export function Page09({ onNext }: PageProps) {
       <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_1fr]">
         <Figure src={modelos} alt="Modelos de EPR: facial inteira, semi-facial e descartável" />
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <CircleItem label="Facial inteira" />
-          <CircleItem label="Semi-facial" />
-          <CircleItem label="Descartáveis" />
-          <span className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-lg font-bold text-brand-foreground shadow-circle">
+          <CircleItem
+            label="Facial inteira"
+            active={facialAberta}
+            onClick={() => setFacialAberta(true)}
+          >
+            {facialAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_FACIAL_INTEIRA}
+              </span>
+            ) : (
+              "Facial inteira"
+            )}
+          </CircleItem>
+          <CircleItem label="Semi-facial" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
+            {duplaAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_SEMI_DESCARTAVEL}
+              </span>
+            ) : (
+              "Semi-facial"
+            )}
+          </CircleItem>
+          <CircleItem label="Descartáveis" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
+            {duplaAberta ? (
+              <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
+                {TEXTO_SEMI_DESCARTAVEL}
+              </span>
+            ) : (
+              "Descartáveis"
+            )}
+          </CircleItem>
+          <button
+            type="button"
+            aria-label="Informações sobre peças de reposição"
+            onClick={() => setInfoAberta(true)}
+            className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-lg font-bold text-brand-foreground shadow-circle"
+          >
             i
-          </span>
+          </button>
+          {infoAberta ? (
+            <Panel tone="ppr" className="w-full">
+              {TEXTO_MANUTENCAO_INFO}
+            </Panel>
+          ) : null}
         </div>
       </div>
 
@@ -367,16 +449,47 @@ export const SUBSTANCIAS = {
   ],
 };
 
-export function Page10({ onNext }: PageProps) {
+type Lado = "pintura" | "solda";
+
+export function Page10({ onNext, onBackToStart }: PageProps) {
+  const podeVoltar = useReadingTimer(6000);
+  const [lado, setLado] = useState<Lado | null>(null);
+  const [concentracao, setConcentracao] = useState("");
+  const [substancia, setSubstancia] = useState<string | null>(null);
+  const [fpa, setFpa] = useState<number | null>(null);
+  const [resultado, setResultado] = useState<"aprovado" | "reprovado" | null>(null);
+
+  const conc = Number(concentracao.replace(",", "."));
+  const concValida = concentracao.trim() !== "" && Number.isFinite(conc);
+  const limite = useMemo(() => {
+    if (!lado || !substancia) return null;
+    return SUBSTANCIAS[lado].find((s) => s.nome === substancia)?.limite ?? null;
+  }, [lado, substancia]);
+  const fpmr = concValida && limite ? conc / limite : null;
+
+  useEffect(() => {
+    setSubstancia(null);
+    setResultado(null);
+  }, [lado]);
+  useEffect(() => {
+    setResultado(null);
+  }, [concentracao, substancia, fpa]);
+
+  const podeCalcular = concValida && limite !== null && fpa !== null;
+  const calcular = () => {
+    if (!podeCalcular || fpmr === null || fpa === null) return;
+    setResultado(fpmr < fpa ? "aprovado" : "reprovado");
+  };
+
   return (
     <PageShell
       title={TITLE}
       track="PPR"
       footer={
         <>
-          <BackToStartButton />
+          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={10} />
-          <AdvanceButton onClick={onNext} />
+          <AdvanceButton onClick={onNext} disabled={resultado === null} />
         </>
       }
     >
@@ -400,32 +513,62 @@ export function Page10({ onNext }: PageProps) {
 
       <SectionTitle>Simulador e validador da Proteção Mínima Requerida.</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-3">
-          <Figure src={pintura} alt="Pintura com tintas à base de solvente" caption="Pintura com tintas à Base de Solvente" />
-          <div className="flex gap-2">
-            {SUBSTANCIAS.pintura.map((s) => (
-              <span
-                key={s.nome}
-                className="rounded-full border border-ppr/40 bg-card px-3 py-1.5 text-xs font-semibold"
-              >
-                {s.nome} {s.limite} {s.unidade}
-              </span>
-            ))}
+        {lado !== "solda" ? (
+          <div className="space-y-3">
+            <button type="button" onClick={() => setLado("pintura")} className="block w-full text-left">
+              <Figure
+                src={pintura}
+                alt="Pintura com tintas à base de solvente"
+                caption="Pintura com tintas à Base de Solvente"
+                className={lado === "pintura" ? "ring-2 ring-brand rounded-xl" : ""}
+              />
+            </button>
+            <div className="flex gap-2">
+              {SUBSTANCIAS.pintura.map((s) => (
+                <button
+                  key={s.nome}
+                  type="button"
+                  disabled={lado !== "pintura"}
+                  aria-pressed={substancia === s.nome}
+                  onClick={() => setSubstancia(s.nome)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    substancia === s.nome ? "border-ppr bg-ppr text-brand-foreground" : "border-ppr/40 bg-card"
+                  }`}
+                >
+                  {s.nome} {s.limite} {s.unidade}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="space-y-3">
-          <Figure src={solda} alt="Manutenção e reparos com solda" caption="Manutenção-reparos com solda" />
-          <div className="flex gap-2">
-            {SUBSTANCIAS.solda.map((s) => (
-              <span
-                key={s.nome}
-                className="rounded-full border border-ppr/40 bg-card px-3 py-1.5 text-xs font-semibold"
-              >
-                {s.nome} {s.limite} {s.unidade}
-              </span>
-            ))}
+        ) : null}
+        {lado !== "pintura" ? (
+          <div className="space-y-3">
+            <button type="button" onClick={() => setLado("solda")} className="block w-full text-left">
+              <Figure
+                src={solda}
+                alt="Manutenção e reparos com solda"
+                caption="Manutenção-reparos com solda"
+                className={lado === "solda" ? "ring-2 ring-brand rounded-xl" : ""}
+              />
+            </button>
+            <div className="flex gap-2">
+              {SUBSTANCIAS.solda.map((s) => (
+                <button
+                  key={s.nome}
+                  type="button"
+                  disabled={lado !== "solda"}
+                  aria-pressed={substancia === s.nome}
+                  onClick={() => setSubstancia(s.nome)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    substancia === s.nome ? "border-ppr bg-ppr text-brand-foreground" : "border-ppr/40 bg-card"
+                  }`}
+                >
+                  {s.nome} {s.limite} {s.unidade}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -433,6 +576,9 @@ export function Page10({ onNext }: PageProps) {
           <SubTitle>Digite uma concentração</SubTitle>
           <input
             type="text"
+            inputMode="decimal"
+            value={concentracao}
+            onChange={(e) => setConcentracao(e.target.value)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
         </Panel>
@@ -440,6 +586,7 @@ export function Page10({ onNext }: PageProps) {
           <SubTitle>FPMR calculado</SubTitle>
           <input
             readOnly
+            value={resultado && fpmr !== null ? String(Math.round(fpmr * 100) / 100) : ""}
             className="w-full rounded-md border border-input bg-muted px-3 py-2 text-sm"
           />
         </Panel>
@@ -452,17 +599,50 @@ export function Page10({ onNext }: PageProps) {
           opção:
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full border border-border px-4 py-2 text-xs font-semibold">
-            Semifacial PFF2 - PFF3
-          </span>
-          <span className="rounded-full border border-border px-4 py-2 text-xs font-semibold">
-            Facial inteira PFF2 - PFF3
-          </span>
-          <span className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-circle">
+          {[
+            { label: "Semifacial PFF2 - PFF3", valor: 10 },
+            { label: "Facial inteira PFF2 - PFF3", valor: 100 },
+          ].map((o) => (
+            <button
+              key={o.valor}
+              type="button"
+              aria-pressed={fpa === o.valor}
+              onClick={() => setFpa(o.valor)}
+              className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
+                fpa === o.valor ? "border-brand bg-brand text-brand-foreground" : "border-border"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+          <button
+            type="button"
+            aria-label="Calcular"
+            disabled={!podeCalcular}
+            onClick={calcular}
+            className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-circle disabled:cursor-not-allowed disabled:opacity-40"
+          >
             ⚙
-          </span>
+          </button>
           <span className="text-sm text-muted-foreground">Calcular</span>
         </div>
+
+        {resultado === "aprovado" ? (
+          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-ok">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border border-ok">
+              ✓
+            </span>
+            proteção mínima requerida garantida
+          </p>
+        ) : null}
+        {resultado === "reprovado" ? (
+          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-destructive">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border border-destructive">
+              ✕
+            </span>
+            respirador não adequado. Necessário trocar
+          </p>
+        ) : null}
       </Panel>
 
       <Figure

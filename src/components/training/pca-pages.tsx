@@ -387,7 +387,13 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
           Conhecendo bem meu(s) protetor (s) auditivo(s) marcarei (✓) para “sim” e (✕) para “não”:
         </p>
         {PCA_TESTE.map((p) => (
-          <SimNao key={p} pergunta={p} />
+          <SimNao
+            key={p}
+            pergunta={p}
+            valor={respostas[p]}
+            onSelect={marcar(p)}
+            enabled={liberado}
+          />
         ))}
       </Panel>
 
@@ -419,7 +425,13 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
           Meu protetor foi selecionado por mim durante este treinamento, sendo concluído que:
         </p>
         {PCA_PARECER.map((p) => (
-          <SimNao key={p} pergunta={p} />
+          <SimNao
+            key={p}
+            pergunta={p}
+            valor={respostas[p]}
+            onSelect={marcar(p)}
+            enabled={liberado}
+          />
         ))}
       </Panel>
 
@@ -473,16 +485,31 @@ export function TermoPage({
   pageNumber: number;
   onNext: () => void;
 }) {
+  const [assinado, setAssinado] = useState(false);
+  const [concluido, setConcluido] = useState(false);
+  const pad = useSignaturePad({ onChange: setAssinado });
+
+  useEffect(() => {
+    if (!concluido) return;
+    const id = setTimeout(onNext, 3000);
+    return () => clearTimeout(id);
+  }, [concluido, onNext]);
+
+  if (concluido) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-panel px-6">
+        <p className="font-display text-center text-xl font-semibold text-brand-deep sm:text-3xl">
+          conclusão do treinamento
+        </p>
+      </div>
+    );
+  }
+
   return (
     <PageShell
       title={track === "PCA" ? TITLE : "Treinamento de proteção respiratória"}
       track={track}
-      footer={
-        <>
-          <PageNumber n={pageNumber} />
-          <AdvanceButton onClick={onNext} label="Concluir" />
-        </>
-      }
+      footer={<PageNumber n={pageNumber} />}
     >
       <SectionTitle>Termo de Responsabilidade</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-[1fr_260px]">
@@ -515,19 +542,21 @@ export function TermoPage({
 
       <SectionTitle>Assinatura</SectionTitle>
       <Panel>
-        <div className="h-40 w-full rounded-lg border-2 border-dashed border-brand/40 bg-background" />
+        <SignatureCanvas pad={pad} />
         <div className="mt-3 flex flex-wrap gap-3">
           <button
             type="button"
-            disabled
-            className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground"
+            disabled={!assinado}
+            onClick={pad.clear}
+            className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             LIMPAR ASSINATURA
           </button>
           <button
             type="button"
-            disabled
-            className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground opacity-40"
+            disabled={!assinado}
+            onClick={() => setConcluido(true)}
+            className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             Confirmar assinatura
           </button>
