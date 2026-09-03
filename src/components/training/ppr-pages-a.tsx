@@ -513,32 +513,62 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
 
       <SectionTitle>Simulador e validador da Proteção Mínima Requerida.</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-3">
-          <Figure src={pintura} alt="Pintura com tintas à base de solvente" caption="Pintura com tintas à Base de Solvente" />
-          <div className="flex gap-2">
-            {SUBSTANCIAS.pintura.map((s) => (
-              <span
-                key={s.nome}
-                className="rounded-full border border-ppr/40 bg-card px-3 py-1.5 text-xs font-semibold"
-              >
-                {s.nome} {s.limite} {s.unidade}
-              </span>
-            ))}
+        {lado !== "solda" ? (
+          <div className="space-y-3">
+            <button type="button" onClick={() => setLado("pintura")} className="block w-full text-left">
+              <Figure
+                src={pintura}
+                alt="Pintura com tintas à base de solvente"
+                caption="Pintura com tintas à Base de Solvente"
+                className={lado === "pintura" ? "ring-2 ring-brand rounded-xl" : ""}
+              />
+            </button>
+            <div className="flex gap-2">
+              {SUBSTANCIAS.pintura.map((s) => (
+                <button
+                  key={s.nome}
+                  type="button"
+                  disabled={lado !== "pintura"}
+                  aria-pressed={substancia === s.nome}
+                  onClick={() => setSubstancia(s.nome)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    substancia === s.nome ? "border-ppr bg-ppr text-brand-foreground" : "border-ppr/40 bg-card"
+                  }`}
+                >
+                  {s.nome} {s.limite} {s.unidade}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="space-y-3">
-          <Figure src={solda} alt="Manutenção e reparos com solda" caption="Manutenção-reparos com solda" />
-          <div className="flex gap-2">
-            {SUBSTANCIAS.solda.map((s) => (
-              <span
-                key={s.nome}
-                className="rounded-full border border-ppr/40 bg-card px-3 py-1.5 text-xs font-semibold"
-              >
-                {s.nome} {s.limite} {s.unidade}
-              </span>
-            ))}
+        ) : null}
+        {lado !== "pintura" ? (
+          <div className="space-y-3">
+            <button type="button" onClick={() => setLado("solda")} className="block w-full text-left">
+              <Figure
+                src={solda}
+                alt="Manutenção e reparos com solda"
+                caption="Manutenção-reparos com solda"
+                className={lado === "solda" ? "ring-2 ring-brand rounded-xl" : ""}
+              />
+            </button>
+            <div className="flex gap-2">
+              {SUBSTANCIAS.solda.map((s) => (
+                <button
+                  key={s.nome}
+                  type="button"
+                  disabled={lado !== "solda"}
+                  aria-pressed={substancia === s.nome}
+                  onClick={() => setSubstancia(s.nome)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    substancia === s.nome ? "border-ppr bg-ppr text-brand-foreground" : "border-ppr/40 bg-card"
+                  }`}
+                >
+                  {s.nome} {s.limite} {s.unidade}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -546,6 +576,9 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
           <SubTitle>Digite uma concentração</SubTitle>
           <input
             type="text"
+            inputMode="decimal"
+            value={concentracao}
+            onChange={(e) => setConcentracao(e.target.value)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
         </Panel>
@@ -553,6 +586,7 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
           <SubTitle>FPMR calculado</SubTitle>
           <input
             readOnly
+            value={resultado && fpmr !== null ? String(Math.round(fpmr * 100) / 100) : ""}
             className="w-full rounded-md border border-input bg-muted px-3 py-2 text-sm"
           />
         </Panel>
@@ -565,17 +599,50 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
           opção:
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full border border-border px-4 py-2 text-xs font-semibold">
-            Semifacial PFF2 - PFF3
-          </span>
-          <span className="rounded-full border border-border px-4 py-2 text-xs font-semibold">
-            Facial inteira PFF2 - PFF3
-          </span>
-          <span className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-circle">
+          {[
+            { label: "Semifacial PFF2 - PFF3", valor: 10 },
+            { label: "Facial inteira PFF2 - PFF3", valor: 100 },
+          ].map((o) => (
+            <button
+              key={o.valor}
+              type="button"
+              aria-pressed={fpa === o.valor}
+              onClick={() => setFpa(o.valor)}
+              className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
+                fpa === o.valor ? "border-brand bg-brand text-brand-foreground" : "border-border"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+          <button
+            type="button"
+            aria-label="Calcular"
+            disabled={!podeCalcular}
+            onClick={calcular}
+            className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-circle disabled:cursor-not-allowed disabled:opacity-40"
+          >
             ⚙
-          </span>
+          </button>
           <span className="text-sm text-muted-foreground">Calcular</span>
         </div>
+
+        {resultado === "aprovado" ? (
+          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-ok">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border border-ok">
+              ✓
+            </span>
+            proteção mínima requerida garantida
+          </p>
+        ) : null}
+        {resultado === "reprovado" ? (
+          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-destructive">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border border-destructive">
+              ✕
+            </span>
+            respirador não adequado. Necessário trocar
+          </p>
+        ) : null}
       </Panel>
 
       <Figure
