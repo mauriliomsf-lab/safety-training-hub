@@ -414,7 +414,7 @@ function PerguntaTeste({
   enabled,
 }: {
   p: Pergunta;
-  resposta?: number;
+  resposta?: number | undefined;
   onSelect: (i: number) => void;
   enabled: boolean;
 }) {

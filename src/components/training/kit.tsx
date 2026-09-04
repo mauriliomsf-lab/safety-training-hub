@@ -4,7 +4,7 @@ export type Track = "PCA" | "PPR";
 
 export type PageProps = {
   onNext: () => void;
-  onBackToStart?: () => void;
+  onBackToStart?: (() => void) | undefined;
 };
 
 /** Contagem de tempo mínimo de leitura, totalmente invisível ao usuário. */
@@ -211,8 +211,8 @@ export function AdvanceButton({
   label = "Avançar",
 }: {
   onClick: () => void;
-  disabled?: boolean;
-  label?: string;
+  disabled?: boolean | undefined;
+  label?: string | undefined;
 }) {
   return (
     <button
@@ -232,8 +232,8 @@ export function BackToStartButton({
   onClick,
   enabled = false,
 }: {
-  onClick?: () => void;
-  enabled?: boolean;
+  onClick?: (() => void) | undefined;
+  enabled?: boolean | undefined;
 }) {
   return (
     <button
@@ -263,9 +263,9 @@ export function CircleItem({
   active,
 }: {
   label: string;
-  children?: ReactNode;
-  onClick?: () => void;
-  active?: boolean;
+  children?: ReactNode | undefined;
+  onClick?: (() => void) | undefined;
+  active?: boolean | undefined;
 }) {
   return (
     <button
