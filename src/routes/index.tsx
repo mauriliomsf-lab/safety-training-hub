@@ -13,8 +13,8 @@ import {
 } from "@/components/training/ppr-pages-b";
 import type { Track } from "@/components/training/kit";
 
-import protetores from "@/assets/pca-protetores.jpg";
-import respiradores from "@/assets/ppr-respiradores.jpg";
+import protetores from "@/assets/select-pca.jpg";
+import respiradores from "@/assets/select-ppr.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -184,7 +184,7 @@ function SelecaoModulo({
                 type="button"
                 onClick={() => setTrack(o.id)}
                 aria-pressed={track === o.id}
-                className={`size-40 overflow-hidden rounded-full border-4 shadow-circle transition-colors sm:size-52 ${
+                className={`relative size-40 overflow-hidden rounded-full border-4 bg-background shadow-circle transition-colors sm:size-52 ${
                   track === o.id ? "border-brand" : "border-border"
                 }`}
               >
@@ -193,7 +193,12 @@ function SelecaoModulo({
                   alt={o.alt}
                   width={768}
                   height={768}
-                  className="size-full object-cover"
+                  loading="lazy"
+                  className="size-full scale-95 object-contain p-2 contrast-[1.02] saturate-[0.95]"
+                />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-10px_24px_-12px_rgba(15,23,42,0.35),inset_0_10px_20px_-14px_rgba(255,255,255,0.9)]"
                 />
               </button>
               <p className="text-center text-sm font-semibold text-brand-deep">{o.label}</p>
