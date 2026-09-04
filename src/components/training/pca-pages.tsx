@@ -306,7 +306,7 @@ function SimNao({
   enabled,
 }: {
   pergunta: string;
-  valor?: boolean;
+  valor?: boolean | undefined;
   onSelect: (v: boolean) => void;
   enabled: boolean;
 }) {
