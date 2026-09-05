@@ -99,9 +99,17 @@ function TreinamentoApp() {
     case 3:
       return <Page03 onNext={next} />;
     case 4:
-      return <Page04 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page04 onNext={next} />;
     case 5:
-      return <Page05 nome={nome} matricula={matricula} onNext={reiniciarSessao} />;
+      return (
+        <Page05
+          nome={nome}
+          matricula={matricula}
+          onNext={reiniciarSessao}
+          onNomeChange={setNome}
+          onMatriculaChange={setMatricula}
+        />
+      );
     case 6:
       return <Page06 onNext={next} onBackToStart={reiniciarSessao} />;
     case 7:

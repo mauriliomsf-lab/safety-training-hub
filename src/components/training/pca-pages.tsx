@@ -19,7 +19,18 @@ import {
 import anatomia from "@/assets/anatomia-ouvido.jpg";
 import colocacao from "@/assets/colocacao-abafador.jpg";
 import higiene from "@/assets/higiene-auditiva.jpg";
+import higienePlugs from "@/assets/higiene-plugs.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
+import plugSequencia from "@/assets/plug-sequencia.jpg";
+import protArco from "@/assets/prot-arco.jpg";
+import protCapacete from "@/assets/prot-capacete.jpg";
+import protPlug from "@/assets/prot-plug.jpg";
+import icoDbAlto from "@/assets/ico-db-alto.png";
+import icoDbExtremo from "@/assets/ico-db-alto-extremo.png";
+import icoDbLigeiro from "@/assets/ico-db-ligeiro.png";
+import icoDoencas from "@/assets/ico-doencas.png";
+import icoMedicamentos from "@/assets/ico-medicamentos.png";
+import icoTraumatismo from "@/assets/ico-traumatismo.png";
 
 const TITLE = "Treinamento - Programa Conservação auditiva";
 
@@ -87,14 +98,38 @@ export function Page02({ onNext, onBackToStart }: PageProps) {
       <SectionTitle>Perda da audição</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-3">
         <Panel tone="warn">
+          <img
+            src={icoTraumatismo}
+            alt="Ícone de cotonete próximo à orelha"
+            width={512}
+            height={512}
+            loading="lazy"
+            className="mx-auto mb-2 size-16 object-contain"
+          />
           <SubTitle>Traumatismo</SubTitle>
           Coçar as orelhas com objetos e cotonetes.
         </Panel>
         <Panel tone="warn">
+          <img
+            src={icoMedicamentos}
+            alt="Ícone de frasco de medicamentos com sinal de alerta"
+            width={512}
+            height={512}
+            loading="lazy"
+            className="mx-auto mb-2 size-16 object-contain"
+          />
           <SubTitle>Medicamentos</SubTitle>
           Exagero e uso incorreto
         </Panel>
         <Panel tone="warn">
+          <img
+            src={icoDoencas}
+            alt="Ícone de cartela de comprimidos"
+            width={512}
+            height={512}
+            loading="lazy"
+            className="mx-auto mb-2 size-16 object-contain"
+          />
           <SubTitle>Doenças</SubTitle>
           Diabetes, hipertensão arterial, doenças de tireoide, infecciosas ou virais.
         </Panel>
@@ -128,7 +163,23 @@ const ESCALA: Array<[number, string]> = [
   [10, ""],
 ];
 
+const ESCALA_ICONES: Record<number, { src: string; alt: string }> = {
+  120: { src: icoDbExtremo, alt: "Ícone de avião, sirene e fogos de artifício" },
+  80: { src: icoDbAlto, alt: "Ícone de máquina de lavar, helicóptero e trombone" },
+  40: { src: icoDbLigeiro, alt: "Ícone de pássaros e sussurro" },
+};
+
 const ATENUACOES = [16, 20, 21];
+
+const ATENUACAO_IMG: Record<number, { src: string; alt: string; legenda: string }> = {
+  16: { src: protPlug, alt: "Protetor auditivo tipo plug", legenda: "Plug" },
+  20: { src: protArco, alt: "Abafador auditivo tipo arco", legenda: "Abafador tipo arco" },
+  21: {
+    src: protCapacete,
+    alt: "Abafador auditivo acoplado ao capacete",
+    legenda: "Abafador no capacete",
+  },
+};
 
 export function Page03({ onNext }: PageProps) {
   const [medido, setMedido] = useState("");
@@ -156,17 +207,32 @@ export function Page03({ onNext }: PageProps) {
     >
       <SectionTitle>Proteção auditiva - laborais e extra-laborais.</SectionTitle>
 
-      <div className="grid gap-4 sm:grid-cols-[220px_1fr]">
+      <div className="grid gap-4 sm:grid-cols-[260px_1fr]">
         <Panel>
           <SubTitle>dB — Escala de nível de ruído</SubTitle>
           <table className="w-full text-xs">
             <tbody>
-              {ESCALA.map(([db, label]) => (
-                <tr key={db} className="border-b border-border/60 last:border-0">
-                  <td className="py-1 pr-2 font-semibold text-brand-deep">{db}</td>
-                  <td className="py-1 text-muted-foreground">{label}</td>
-                </tr>
-              ))}
+              {ESCALA.map(([db, label]) => {
+                const ico = ESCALA_ICONES[db];
+                return (
+                  <tr key={db} className="border-b border-border/60 last:border-0">
+                    <td className="py-1 pr-2 font-semibold text-brand-deep">{db}</td>
+                    <td className="py-1 text-muted-foreground">{label}</td>
+                    <td className="w-10 py-1">
+                      {ico ? (
+                        <img
+                          src={ico.src}
+                          alt={ico.alt}
+                          width={512}
+                          height={512}
+                          loading="lazy"
+                          className="size-9 object-contain"
+                        />
+                      ) : null}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </Panel>
@@ -209,23 +275,37 @@ export function Page03({ onNext }: PageProps) {
         </Panel>
         <Panel tone="brand">
           <SubTitle>Atenuação do protetor</SubTitle>
-          <div className="flex flex-wrap gap-2">
-            {ATENUACOES.map((v) => (
-              <button
-                key={v}
-                type="button"
-                disabled={!medidoValido}
-                aria-pressed={atenuacao === v}
-                onClick={() => setAtenuacao(v)}
-                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
-                  atenuacao === v
-                    ? "border-brand bg-brand text-brand-foreground"
-                    : "border-brand/40 bg-card text-brand-deep"
-                }`}
-              >
-                {v} dB
-              </button>
-            ))}
+          <div className="grid grid-cols-3 gap-2">
+            {ATENUACOES.map((v) => {
+              const img = ATENUACAO_IMG[v]!;
+              return (
+                <button
+                  key={v}
+                  type="button"
+                  disabled={!medidoValido}
+                  aria-pressed={atenuacao === v}
+                  onClick={() => setAtenuacao(v)}
+                  className={`flex flex-col items-center gap-1 rounded-lg border p-2 text-center text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    atenuacao === v
+                      ? "border-brand bg-brand text-brand-foreground"
+                      : "border-brand/40 bg-card text-brand-deep"
+                  }`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    width={768}
+                    height={768}
+                    loading="lazy"
+                    className="size-14 rounded-md bg-background object-contain p-0.5"
+                  />
+                  <span>{v} dB</span>
+                  <span className="text-[10px] leading-tight font-normal opacity-80">
+                    {img.legenda}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </Panel>
         <Panel tone="brand">
@@ -242,7 +322,11 @@ export function Page03({ onNext }: PageProps) {
 
       <SectionTitle>Uso e colocação</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Figure src={colocacao} alt="Pessoa ajustando abafador auditivo" />
+        <Figure
+          src={colocacao}
+          alt="Pessoa ajustando abafador auditivo tipo arco, vista da nuca"
+          caption="Ajuste do abafador tipo arco"
+        />
         <div className="space-y-4">
           <Panel>
             <Bullets
@@ -265,7 +349,14 @@ export function Page03({ onNext }: PageProps) {
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <Figure src={protetores} alt="Protetores auditivos tipo plug" caption="Colocação do plug" />
+        <div className="space-y-4">
+          <Figure
+            src={plugSequencia}
+            alt="Sequência A, B, C e D de colocação do plug no canal auditivo, com indicação de certo e errado"
+            caption="Colocação do plug: A, B, C e D (certo e errado)"
+          />
+          <Figure src={protetores} alt="Protetores auditivos tipo plug" caption="Colocação do plug" />
+        </div>
         <Panel>
           <Bullets
             items={[
@@ -345,10 +436,10 @@ function SimNao({
   );
 }
 
-export function Page04({ onNext, onBackToStart }: PageProps) {
+export function Page04({ onNext }: PageProps) {
   const liberado = useReadingTimer(6000);
-  const podeVoltar = liberado;
   const [respostas, setRespostas] = useState<Record<string, boolean>>({});
+  const [resultado, setResultado] = useState<string | null>(null);
   const todas = [...PCA_TESTE, ...PCA_PARECER];
   const completo = todas.every((p) => respostas[p] !== undefined);
   const marcar = (p: string) => (v: boolean) => setRespostas((r) => ({ ...r, [p]: v }));
@@ -359,7 +450,6 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
       track="PCA"
       footer={
         <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
           <PageNumber n={4} />
           <AdvanceButton onClick={onNext} disabled={!completo} />
         </>
@@ -367,7 +457,18 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
     >
       <SectionTitle>Inspeção e Manutenção</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
-        <Figure src={higiene} alt="Higienização de protetores auditivos" />
+        <div className="space-y-4">
+          <Figure
+            src={higiene}
+            alt="Mãos limpando o abafador auditivo com pano úmido"
+            caption="Limpeza do abafador"
+          />
+          <Figure
+            src={higienePlugs}
+            alt="Mãos lavando plugs de silicone em água corrente"
+            caption="Lavagem dos plugs de silicone"
+          />
+        </div>
         <div className="space-y-4">
           <Panel>
             Retire com cuidado, as almofadas externas (se forem removíveis). Limpe com um pano úmido,
@@ -380,22 +481,6 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
           </Panel>
         </div>
       </div>
-
-      <SectionTitle>Teste de conhecimento</SectionTitle>
-      <Panel tone="pca">
-        <p className="mb-2 text-sm">
-          Conhecendo bem meu(s) protetor (s) auditivo(s) marcarei (✓) para “sim” e (✕) para “não”:
-        </p>
-        {PCA_TESTE.map((p) => (
-          <SimNao
-            key={p}
-            pergunta={p}
-            valor={respostas[p]}
-            onSelect={marcar(p)}
-            enabled={liberado}
-          />
-        ))}
-      </Panel>
 
       <SectionTitle>Inspeção, conservação e troca</SectionTitle>
       <Panel>
@@ -419,9 +504,21 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
         reposição devem ser trocadas.
       </Panel>
 
-      <SectionTitle>Parecer seleção EPI</SectionTitle>
+      <SectionTitle>Teste de conhecimento</SectionTitle>
       <Panel tone="pca">
         <p className="mb-2 text-sm">
+          Conhecendo bem meu(s) protetor (s) auditivo(s) marcarei (✓) para “sim” e (✕) para “não”:
+        </p>
+        {PCA_TESTE.map((p) => (
+          <SimNao
+            key={p}
+            pergunta={p}
+            valor={respostas[p]}
+            onSelect={marcar(p)}
+            enabled={liberado}
+          />
+        ))}
+        <p className="mt-3 mb-2 text-sm">
           Meu protetor foi selecionado por mim durante este treinamento, sendo concluído que:
         </p>
         {PCA_PARECER.map((p) => (
@@ -435,16 +532,30 @@ export function Page04({ onNext, onBackToStart }: PageProps) {
         ))}
       </Panel>
 
-      <SectionTitle>Resultado</SectionTitle>
+      <SectionTitle>Parecer seleção EPI</SectionTitle>
       <Panel>
-        <ul className="space-y-2 text-sm">
+        <SubTitle>Resultado</SubTitle>
+        <div role="radiogroup" aria-label="Resultado" className="space-y-2 text-sm">
           {PCA_RESULTADO.map((r) => (
-            <li key={r} className="flex items-center gap-3">
-              <span className="size-5 shrink-0 rounded-full border border-brand/50" />
-              {r}
-            </li>
+            <button
+              key={r}
+              type="button"
+              role="radio"
+              aria-checked={resultado === r}
+              onClick={() => setResultado(r)}
+              className="flex w-full items-center gap-3 rounded-lg px-1 py-1.5 text-left transition-colors hover:bg-brand-soft/60"
+            >
+              <span
+                className={`flex size-5 shrink-0 items-center justify-center rounded-full border ${
+                  resultado === r ? "border-brand" : "border-brand/50"
+                }`}
+              >
+                {resultado === r ? <span className="size-2.5 rounded-full bg-brand" /> : null}
+              </span>
+              <span>{r}</span>
+            </button>
           ))}
-        </ul>
+        </div>
       </Panel>
     </PageShell>
   );
@@ -475,6 +586,8 @@ export function TermoPage({
   matricula,
   pageNumber,
   onNext,
+  onNomeChange,
+  onMatriculaChange,
 }: {
   track: "PCA" | "PPR";
   paragrafos: string[];
@@ -484,6 +597,8 @@ export function TermoPage({
   matricula: string;
   pageNumber: number;
   onNext: () => void;
+  onNomeChange?: ((v: string) => void) | undefined;
+  onMatriculaChange?: ((v: string) => void) | undefined;
 }) {
   const [assinado, setAssinado] = useState(false);
   const [concluido, setConcluido] = useState(false);
@@ -532,11 +647,29 @@ export function TermoPage({
       <div className="grid gap-4 sm:grid-cols-2">
         <Panel>
           <SubTitle>Nome</SubTitle>
-          <p className="text-sm text-muted-foreground">{nome || "—"}</p>
+          {onNomeChange ? (
+            <input
+              value={nome}
+              onChange={(e) => onNomeChange(e.target.value)}
+              aria-label="Nome"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            />
+          ) : (
+            <p className="text-sm text-muted-foreground">{nome || "—"}</p>
+          )}
         </Panel>
         <Panel>
           <SubTitle>Matrícula</SubTitle>
-          <p className="text-sm text-muted-foreground">{matricula || "—"}</p>
+          {onMatriculaChange ? (
+            <input
+              value={matricula}
+              onChange={(e) => onMatriculaChange(e.target.value)}
+              aria-label="Matrícula"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            />
+          ) : (
+            <p className="text-sm text-muted-foreground">{matricula || "—"}</p>
+          )}
         </Panel>
       </div>
 
@@ -570,10 +703,14 @@ export function Page05({
   nome,
   matricula,
   onNext,
+  onNomeChange,
+  onMatriculaChange,
 }: {
   nome: string;
   matricula: string;
   onNext: () => void;
+  onNomeChange: (v: string) => void;
+  onMatriculaChange: (v: string) => void;
 }) {
   return (
     <TermoPage
@@ -585,6 +722,8 @@ export function Page05({
       matricula={matricula}
       pageNumber={5}
       onNext={onNext}
+      onNomeChange={onNomeChange}
+      onMatriculaChange={onMatriculaChange}
     />
   );
 }
