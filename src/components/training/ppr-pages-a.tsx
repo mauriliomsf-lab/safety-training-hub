@@ -567,30 +567,6 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
             "Semi-facial"
           )}
         </CircleItem>
-        <div className="flex items-center gap-2">
-          <figure className="w-16 text-center">
-            <img
-              src={eprCartuchoQuimico}
-              alt="Cartucho químico de reposição do respirador de manutenção"
-              loading="lazy"
-              className="mx-auto size-14 object-contain"
-            />
-            <figcaption className="mt-1 text-[10px] leading-tight text-muted-foreground">
-              Cartucho químico
-            </figcaption>
-          </figure>
-          <figure className="w-16 text-center">
-            <img
-              src={eprFiltroMecanico}
-              alt="Filtro mecânico de reposição do respirador de manutenção"
-              loading="lazy"
-              className="mx-auto size-14 object-contain"
-            />
-            <figcaption className="mt-1 text-[10px] leading-tight text-muted-foreground">
-              Filtro mecânico
-            </figcaption>
-          </figure>
-        </div>
         <CircleItem label="Descartáveis" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
           {duplaAberta ? (
             <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
@@ -613,6 +589,34 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
             {TEXTO_MANUTENCAO_INFO}
           </Panel>
         ) : null}
+      </div>
+
+      <p className="mt-6 mb-2 text-center text-xs font-semibold tracking-wide text-muted-foreground">
+        Peças de reposição do respirador de manutenção
+      </p>
+      <div className="flex flex-wrap justify-center gap-4">
+        <figure className="w-28 rounded-xl border border-border bg-card p-3 text-center shadow-panel">
+          <img
+            src={eprCartuchoQuimico}
+            alt="Cartucho químico de reposição do respirador de manutenção"
+            loading="lazy"
+            className="mx-auto size-16 object-contain"
+          />
+          <figcaption className="mt-2 text-xs font-medium text-muted-foreground">
+            Cartucho químico
+          </figcaption>
+        </figure>
+        <figure className="w-28 rounded-xl border border-border bg-card p-3 text-center shadow-panel">
+          <img
+            src={eprFiltroMecanico}
+            alt="Filtro mecânico de reposição do respirador de manutenção"
+            loading="lazy"
+            className="mx-auto size-16 object-contain"
+          />
+          <figcaption className="mt-2 text-xs font-medium text-muted-foreground">
+            Filtro mecânico
+          </figcaption>
+        </figure>
       </div>
 
       <SectionTitle>EPR e a forma do risco respiratório</SectionTitle>
