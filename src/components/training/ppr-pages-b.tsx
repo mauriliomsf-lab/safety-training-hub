@@ -22,6 +22,8 @@ import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao.svg";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante.svg";
 import testeNegativa from "@/assets/teste-pressao-negativa.svg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
+import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo.svg";
+import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo.svg";
 import hig1 from "@/assets/hig-1-remover-filtros.svg";
 import hig2 from "@/assets/hig-2-lavar.svg";
 import hig3 from "@/assets/hig-3-verificar.svg";
@@ -304,11 +306,15 @@ export const ETAPAS_HIGIENIZACAO = [
 export const ENSAIOS_VEDACAO = [
   {
     nome: "Ensaio de Vedação Qualitativo",
+    ico: ensaioQualitativo,
+    icoAlt: "Pessoa com touca de teste e agente aplicado próximo ao rosto",
     texto:
       "Utiliza a própria percepção do usuário a um agente de teste (como sacarina, Bitrex ou fumaça irritante) borrifado dentro de uma touca. Se o usuário não perceber o gosto, odor ou irritação, considera-se a vedação satisfatória. É um método subjetivo, que não depende de equipamento de medição.",
   },
   {
     nome: "Ensaio de Vedação Quantitativo",
+    ico: ensaioQuantitativo,
+    icoAlt: "Manequim com respirador conectado por mangueira a um aparelho de medição",
     texto:
       "Utiliza equipamento de medição (como um contador de partículas) que compara a concentração de partículas no ar ambiente e dentro da peça facial, calculando numericamente o fator de vedação obtido. É um método objetivo, mais preciso que o qualitativo.",
   },
@@ -361,6 +367,14 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
           const aberto = ensaioAberto === i;
           return (
             <Panel key={ensaio.nome} tone="brand">
+              <img
+                src={ensaio.ico}
+                alt={ensaio.icoAlt}
+                width={400}
+                height={400}
+                loading="lazy"
+                className="mx-auto mb-2 size-28 object-contain"
+              />
               <button
                 type="button"
                 aria-expanded={aberto}

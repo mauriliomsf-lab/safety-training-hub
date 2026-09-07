@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Ensaio de vedacao quantitativo: manequim com respirador conectado por mangueira a aparelho de medicao"><defs><clipPath id="clipQ"><rect x="6" y="6" width="388" height="388" rx="20"/></clipPath></defs><rect width="400" height="400" fill="#ffffff"/><rect x="6" y="6" width="388" height="388" rx="20" fill="#ffffff" stroke="#0d7a80" stroke-width="6"/><g clip-path="url(#clipQ)">
+<path d="M92 400 C 96 332, 148 296, 200 290 C 252 296, 304 332, 308 400 Z" fill="#c7cdd1" stroke="#1f4e56" stroke-width="7" stroke-linejoin="round"/>
+<path d="M172 232 L172 290 C172 302, 228 302, 228 290 L228 232 Z" fill="#dfe3e6" stroke="#1f4e56" stroke-width="7" stroke-linejoin="round"/>
+<ellipse cx="200" cy="165" rx="78" ry="92" fill="#dfe3e6" stroke="#1f4e56" stroke-width="7"/>
+<ellipse cx="122" cy="176" rx="13" ry="21" fill="#dfe3e6" stroke="#1f4e56" stroke-width="6"/>
+<ellipse cx="278" cy="176" rx="13" ry="21" fill="#dfe3e6" stroke="#1f4e56" stroke-width="6"/>
+<path d="M200 100 C 240 100, 260 130, 258 158" fill="none" stroke="#1f4e56" stroke-width="5" stroke-dasharray="3 10" stroke-linecap="round" opacity="0.6"/>
+
+<path d="M126 168 C 150 146, 250 146, 274 168 C 282 214, 262 262, 200 274 C 138 262, 118 214, 126 168 Z" fill="#dfe7ea" stroke="#1f4e56" stroke-width="7" stroke-linejoin="round"/>
+<circle cx="200" cy="222" r="27" fill="#aebfc6" stroke="#1f4e56" stroke-width="6"/>
+<circle cx="200" cy="222" r="13" fill="#eef3f5" stroke="#1f4e56" stroke-width="4"/>
+<ellipse cx="104" cy="206" rx="34" ry="33" fill="#aebfc6" stroke="#1f4e56" stroke-width="7"/>
+<ellipse cx="104" cy="206" rx="17" ry="16" fill="#eef3f5" stroke="#1f4e56" stroke-width="4"/>
+<ellipse cx="296" cy="206" rx="34" ry="33" fill="#aebfc6" stroke="#1f4e56" stroke-width="7"/>
+<ellipse cx="296" cy="206" rx="17" ry="16" fill="#eef3f5" stroke="#1f4e56" stroke-width="4"/>
+<g fill="none" stroke="#7d919a" stroke-width="9" stroke-linecap="round">
+  <path d="M150 160 C 118 138, 104 116, 108 96"/>
+  <path d="M250 160 C 282 138, 296 116, 292 96"/>
+  <path d="M112 238 C 96 254, 92 268, 96 282"/>
+  <path d="M288 238 C 304 254, 308 268, 304 282"/>
+</g>
+<path d="M296 206 C 330 216, 350 240, 352 274 L352 320" fill="none" stroke="#2f6fb0" stroke-width="10" stroke-linecap="round"/><path d="M296 206 C 330 216, 350 240, 352 274 L352 320" fill="none" stroke="#1f4e56" stroke-width="14" stroke-linecap="round" opacity="0.18"/><g transform="translate(300 320)"><rect x="0" y="0" width="104" height="72" rx="12" fill="#2f6fb0" stroke="#1f4e56" stroke-width="7"/><rect x="14" y="12" width="46" height="30" rx="5" fill="#bfe3ff" stroke="#1f4e56" stroke-width="4"/><path d="M20 32 L28 20 L36 30 L44 16" fill="none" stroke="#1f4e56" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="27" r="10" fill="#bfe3ff" stroke="#1f4e56" stroke-width="4"/><rect x="14" y="50" width="76" height="12" rx="6" fill="#eef3f5" stroke="#1f4e56" stroke-width="4"/></g></g></svg>
