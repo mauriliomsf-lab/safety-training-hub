@@ -5,7 +5,6 @@ import {
   BackToStartButton,
   Bullets,
   Figure,
-  PageNumber,
   PageShell,
   Panel,
   SectionTitle,
@@ -15,10 +14,18 @@ import {
 } from "./kit";
 import { NR6_ITENS, TermoPage } from "./pca-pages";
 
-import higienizacao from "@/assets/higienizacao-epr.jpg";
-import modelos from "@/assets/modelos-epr.jpg";
-import pulmoes from "@/assets/pulmoes.jpg";
-import respiradores from "@/assets/ppr-respiradores.jpg";
+import pulmoes from "@/assets/pulmoes.svg";
+import respiradores from "@/assets/ppr-respiradores.svg";
+import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
+import retirada from "@/assets/ppr-retirada.svg";
+import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao.svg";
+import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante.svg";
+import testeNegativa from "@/assets/teste-pressao-negativa.svg";
+import testePositiva from "@/assets/teste-pressao-positiva.svg";
+import hig1 from "@/assets/hig-1-remover-filtros.svg";
+import hig2 from "@/assets/hig-2-lavar.svg";
+import hig3 from "@/assets/hig-3-verificar.svg";
+import hig4 from "@/assets/hig-4-remontar.svg";
 
 const TITLE = "Treinamento de proteção respiratória";
 
@@ -32,7 +39,6 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
       footer={
         <>
           <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <PageNumber n={11} />
           <AdvanceButton onClick={onNext} />
         </>
       }
@@ -85,8 +91,8 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
       </Panel>
       <Panel tone="warn" className="mt-4">
         Em apenas alguns casos, a literatura específica, sinaliza que para algumas substâncias podem
-        possuem um “nível” de odor que pode ser um indicativo “claro” para a troca. Por ser algo mais
-        restrito e limitado, não é um indicador que é recomandado ser seguido.
+        possuem um “nível” de odor que pode ser um indicativo “claro” para a troca. Por ser algo
+        mais restrito e limitado, não é um indicador que é recomandado ser seguido.
       </Panel>
       <SubTitle>Então quando trocar?</SubTitle>
       <Panel>
@@ -97,7 +103,7 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
 
       <SectionTitle>Colocação e retirada do EPR</SectionTitle>
       <SubTitle>Modelos descartáveis</SubTitle>
-      <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
+      <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
         <Panel>
           <Bullets
             items={[
@@ -108,16 +114,27 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
             ]}
           />
         </Panel>
-        <Figure src={respiradores} alt="Colocação de respirador descartável" />
+        <Figure
+          src={colocacaoDescartavel}
+          alt="Sequência A, B, C e D de colocação do respirador descartável"
+          caption="Colocação do respirador descartável: A, B, C e D"
+        />
       </div>
 
       <SectionTitle>Verificação da Vedação</SectionTitle>
-      <Panel tone="ppr">
-        <SubTitle>Teste de Pressão Positiva</SubTitle>
-        Cubra a maior parte do respirador e expire. Se houver vazamento de ar em volta do nariz,
-        reajuste o grampo nasal. Se houver vazamento de ar pelas bordas do respirador, reajuste sua
-        posição.
-      </Panel>
+      <div className="grid items-start gap-4 sm:grid-cols-[1fr_220px]">
+        <Panel tone="ppr">
+          <SubTitle>Teste de Pressão Positiva</SubTitle>
+          Cubra a maior parte do respirador e expire. Se houver vazamento de ar em volta do nariz,
+          reajuste o grampo nasal. Se houver vazamento de ar pelas bordas do respirador, reajuste
+          sua posição.
+        </Panel>
+        <Figure
+          src={testePositiva}
+          alt="Mão espalmada sobre a válvula de exalação do respirador"
+          caption="Teste de Pressão Positiva"
+        />
+      </div>
     </PageShell>
   );
 }
@@ -130,35 +147,49 @@ export function Page12({ onNext }: PageProps) {
       track="PPR"
       footer={
         <>
-          <PageNumber n={12} />
           <AdvanceButton onClick={onNext} />
         </>
       }
     >
       <SectionTitle>Retirada</SectionTitle>
-      <Panel>
-        <Bullets
-          items={[
-            "não tocar na parte frontal da PFF segurar e remover o tirante inferior, e prosseguir mesmo procedimento com o tirante superior.",
-            "remover a máscara segurando-a pelos tirantes, sem tocar em sua parte frontal externa",
-          ]}
+      <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
+        <Panel>
+          <Bullets
+            items={[
+              "não tocar na parte frontal da PFF segurar e remover o tirante inferior, e prosseguir mesmo procedimento com o tirante superior.",
+              "remover a máscara segurando-a pelos tirantes, sem tocar em sua parte frontal externa",
+            ]}
+          />
+        </Panel>
+        <Figure
+          src={retirada}
+          alt="Sequência A, B e C de retirada do respirador segurando pelos tirantes, sem tocar na parte frontal"
+          caption="Retirada: A, B e C"
         />
-      </Panel>
+      </div>
 
       <SectionTitle>Modelos de Manutenção</SectionTitle>
-      <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
-        <Figure src={modelos} alt="Colocação de respirador de manutenção" />
-        <div className="space-y-4">
+      <div className="space-y-4">
+        <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
           <Panel>
-            <SubTitle>Tirante padrão / Tirante deslizante</SubTitle>
+            <SubTitle>Tirante padrão</SubTitle>
             <Bullets
               items={[
                 "Coloque o respirador cobrindo o nariz e a boca, depois puxe o suporte para cima da cabeça.",
                 "Enquanto segura a extremidade dos tirantes com as mãos, deslize a peça facial para encaixar no seu rosto.",
+                "Encaixe as presilhas atrás do pescoço e ajuste os tirantes até obter um encaixe firme.",
               ]}
             />
           </Panel>
+          <Figure
+            src={tirantePadrao}
+            alt="Sequência A, B e C de colocação do respirador de manutenção com tirante padrão"
+            caption="Tirante padrão: A, B e C"
+          />
+        </div>
+        <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
           <Panel>
+            <SubTitle>Tirante deslizante</SubTitle>
             <Bullets
               items={[
                 "Encaixe as presilhas atrás do pescoço.",
@@ -167,6 +198,11 @@ export function Page12({ onNext }: PageProps) {
               ]}
             />
           </Panel>
+          <Figure
+            src={tiranteDeslizante}
+            alt="Sequência A, B e C de colocação do respirador de manutenção com tirante deslizante"
+            caption="Tirante deslizante: A, B e C"
+          />
         </div>
       </div>
 
@@ -174,6 +210,11 @@ export function Page12({ onNext }: PageProps) {
       <div className="grid gap-4 sm:grid-cols-2">
         <Panel tone="ppr">
           <SubTitle>Teste de Pressão Negativa</SubTitle>
+          <Figure
+            className="mx-auto mb-3 max-w-[260px]"
+            src={testeNegativa}
+            alt="Palma da mão cobrindo a face do cartucho do respirador"
+          />
           Coloque a palma da mão de modo a cobrir a face do filtro ou cartucho. Inale levemente. Se
           você sentir que a peça facial contraiu levemente e chegou mais perto da sua face sem
           vazamentos entre a face e a peça, uma vedação apropriada foi obtida. Se for detectado
@@ -182,6 +223,11 @@ export function Page12({ onNext }: PageProps) {
         </Panel>
         <Panel tone="ppr">
           <SubTitle>Teste de Pressão Positiva</SubTitle>
+          <Figure
+            className="mx-auto mb-3 max-w-[260px]"
+            src={testePositiva}
+            alt="Palma da mão sobre a válvula de exalação do respirador"
+          />
           Coloque a palma da mão sobre a válvula de exalação e exale suavemente. Se a peça facial
           estiver selada e não houver vazamento de ar entre seu rosto e a peça, é sinal de que uma
           vedação apropriada foi obtida. Se for detectado vazamento de ar na vedação facial,
@@ -214,12 +260,12 @@ export function Page12({ onNext }: PageProps) {
         <Panel>
           A manutenção do EPR sempre deverá ser feita: a) seguindo as instruções do fabricante; b)
           quando constatada eventuais falhas/avarias no EPR e peças de reposição, ou peças de
-          reposição; c) quando a vida útil terminar e d) quando necessário, por não possuir desempenho
-          adequado.
+          reposição; c) quando a vida útil terminar e d) quando necessário, por não possuir
+          desempenho adequado.
         </Panel>
         <Panel>
-          Os EPRs devem serem guardados em locais protegidos de outros agentes agressivos (espaço sem
-          calor, frio excessivo, umidade elevada ou contaminantes) e que não sejam improvisados.
+          Os EPRs devem serem guardados em locais protegidos de outros agentes agressivos (espaço
+          sem calor, frio excessivo, umidade elevada ou contaminantes) e que não sejam improvisados.
         </Panel>
       </div>
     </PageShell>
@@ -227,6 +273,33 @@ export function Page12({ onNext }: PageProps) {
 }
 
 /* ------------------------------ Página 13 ------------------------------- */
+/** As quatro etapas ilustradas da higienização do respirador de manutenção. */
+export const ETAPAS_HIGIENIZACAO = [
+  {
+    ico: hig1,
+    alt: "Ícone de respirador com os filtros e o diafragma de voz sendo removidos",
+    texto:
+      "Antes de limpar e higienizar remova os filtros mecânicos químicos, além do diafragma de voz (se houver) e a membrana das válvulas.",
+  },
+  {
+    ico: hig2,
+    alt: "Ícone de peça do respirador sendo lavada com escova e sabão",
+    texto:
+      "Lave as partes com sabão neutro e água à vontade. Use uma escova com cerdas macias para remover a sujeira. Os filtros e cartuchos nunca devem ser.",
+  },
+  {
+    ico: hig3,
+    alt: "Ícone de lupa inspecionando uma peça com defeito e a peça de reposição",
+    texto:
+      "Verifique as peças e troque aquelas que apresentam defeitos (se for preciso, substituir filtros).",
+  },
+  {
+    ico: hig4,
+    alt: "Ícone de respirador remontado com os filtros recolocados",
+    texto: "Monte as partes no respirador e recoloque os filtros.",
+  },
+];
+
 export function Page13({ onNext, onBackToStart }: PageProps) {
   const podeVoltar = useReadingTimer(6000);
   return (
@@ -236,7 +309,6 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
       footer={
         <>
           <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <PageNumber n={13} />
           <AdvanceButton onClick={onNext} />
         </>
       }
@@ -245,31 +317,29 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
       <p className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground">
         QUANDO SELECIONADO UM RESPIRADOR DE MANUTENÇÃO
       </p>
-      <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
-        <Figure src={higienizacao} alt="Higienização das partes do respirador" />
-        <div className="space-y-3">
-          <Panel tone="ppr">
-            Antes de limpar e higienizar remova os filtros mecânicos químicos, além do diafragma de
-            voz (se houver) e a membrana das válvulas.
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {ETAPAS_HIGIENIZACAO.map((etapa, i) => (
+          <Panel key={etapa.alt} tone="ppr">
+            <img
+              src={etapa.ico}
+              alt={etapa.alt}
+              width={512}
+              height={512}
+              loading="lazy"
+              className="mx-auto mb-2 size-24 object-contain"
+            />
+            <p className="mb-1 text-center text-xs font-semibold text-brand-deep">Etapa {i + 1}</p>
+            {etapa.texto}
           </Panel>
-          <Panel tone="ppr">
-            Lave as partes com sabão neutro e água à vontade. Use uma escova com cerdas macias para
-            remover a sujeira. Os filtros e cartuchos nunca devem ser.
-          </Panel>
-          <Panel tone="ppr">
-            Verifique as peças e troque aquelas que apresentam defeitos (se for preciso, substituir
-            filtros).
-          </Panel>
-          <Panel tone="ppr">Monte as partes no respirador e recoloque os filtros.</Panel>
-        </div>
+        ))}
       </div>
 
       <SectionTitle>Ensaio de Vedação</SectionTitle>
       <Panel>
         Além da verificação da vedação, deve-se realizar o ensaio de vedação em todos os usuários de
-        máscaras. O ensaio de vedação, é uma forma de comprovar que o respirador é adequado ao usuário
-        e que garante uma boa vedação. Existem dois tipos de ensaio - os quantitativos e qualitativos -
-        abaixo alguns exemplos que existem no mercado.
+        máscaras. O ensaio de vedação, é uma forma de comprovar que o respirador é adequado ao
+        usuário e que garante uma boa vedação. Existem dois tipos de ensaio - os quantitativos e
+        qualitativos - abaixo alguns exemplos que existem no mercado.
       </Panel>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         <Panel tone="brand">Ensaio de Vedação Qualitativo</Panel>
@@ -311,7 +381,8 @@ export const PERGUNTAS_PPR: Pergunta[] = [
   },
   {
     numero: 2,
-    enunciado: "Por que é importante verificar a vedação do respirador antes de iniciar a atividade?",
+    enunciado:
+      "Por que é importante verificar a vedação do respirador antes de iniciar a atividade?",
     opcoes: [
       "Porque a verificação serve apenas para avaliar o conforto do respirador.",
       "Porque a verificação substitui o ensaio de vedação.",
@@ -375,7 +446,7 @@ function UsoIncorretoBlocos() {
       <Figure
         className="mt-4"
         src={pulmoes}
-        alt="Pulmão normal e pulmão com pneumoconiose"
+        alt="Pulmão normal, pulmão com pneumoconiose e raio X de pulmão com pneumonite"
         caption="Pulmão normal • Pulmão com pneumoconiose • Raio X de pulmão com pneumonite"
       />
 
@@ -384,8 +455,8 @@ function UsoIncorretoBlocos() {
       <div className="grid gap-4 sm:grid-cols-2">
         <Panel tone="brand">
           <SubTitle>EMPRESA</SubTitle>
-          Deve fornecer aos empregados, EPI o adequado ao risco e em perfeito estado de conservação e
-          funcionamento, bem como treinar os trabalhadores sobre o uso dos mesmos.
+          Deve fornecer aos empregados, EPI o adequado ao risco e em perfeito estado de conservação
+          e funcionamento, bem como treinar os trabalhadores sobre o uso dos mesmos.
         </Panel>
         <Panel tone="brand">
           <SubTitle>O TRABALHADOR</SubTitle>
@@ -400,8 +471,8 @@ function UsoIncorretoBlocos() {
         </Panel>
       </div>
       <Panel tone="warn" className="mt-4">
-        Constitui ato faltoso do empregado a recusa injustificada: ao uso dos equipamentos de proteção
-        individual fornecidos pela empresa.
+        Constitui ato faltoso do empregado a recusa injustificada: ao uso dos equipamentos de
+        proteção individual fornecidos pela empresa.
       </Panel>
     </>
   );
@@ -463,7 +534,6 @@ export function Page14({ onNext, respostas, onResponder }: PageProps & TesteProp
       track="PPR"
       footer={
         <>
-          <PageNumber n={14} />
           <AdvanceButton onClick={onNext} disabled={!completo} />
         </>
       }
@@ -518,7 +588,6 @@ export function Page15({
       track="PPR"
       footer={
         <>
-          <PageNumber n={15} />
           <AdvanceButton onClick={onNext} disabled={!aprovado} />
         </>
       }
@@ -571,7 +640,6 @@ export function Page16({
       imagemAlt="Respiradores de proteção respiratória"
       nome={nome}
       matricula={matricula}
-      pageNumber={16}
       onNext={onNext}
     />
   );

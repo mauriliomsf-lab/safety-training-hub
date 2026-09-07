@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768" role="img" aria-label="Ajuste do abafador tipo arco visto pela nuca">
+  <rect width="1024" height="768" fill="#ffffff"/>
+  <g stroke="#1f4e56" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bracos -->
+    <path d="M118 768 C 132 620, 190 506, 268 442 L 356 500 C 296 576, 258 664, 254 768 Z"
+          fill="#f2cfb0" stroke-width="9"/>
+    <path d="M906 768 C 892 620, 834 506, 756 442 L 668 500 C 728 576, 766 664, 770 768 Z"
+          fill="#f2cfb0" stroke-width="9"/>
+    <!-- tronco / camisa -->
+    <path d="M236 768 C 244 620, 336 546, 448 524 L 576 524 C 688 546, 780 620, 788 768 Z"
+          fill="#1a6d75" stroke-width="9"/>
+    <!-- gola -->
+    <path d="M448 524 C 470 566, 554 566, 576 524" fill="#15585f" stroke-width="8"/>
+    <!-- pescoco / nuca -->
+    <path d="M452 396 L452 522 C 452 542, 572 542, 572 522 L572 396 Z" fill="#f2cfb0" stroke-width="9"/>
+    <!-- cabeca vista de tras, com cabelo -->
+    <ellipse cx="512" cy="286" rx="142" ry="166" fill="#4a3226" stroke-width="9"/>
+    <!-- linha do cabelo na nuca -->
+    <path d="M414 404 C 452 434, 572 434, 610 404" fill="none" stroke="#33221a" stroke-width="8"/>
+    <g fill="none" stroke="#33221a" stroke-width="6" opacity="0.85">
+      <path d="M470 176 C 452 240, 452 330, 470 400"/>
+      <path d="M512 164 C 500 240, 500 336, 512 408"/>
+      <path d="M554 176 C 572 240, 572 330, 554 400"/>
+    </g>
+    <!-- arco do abafador sobre o topo da cabeca -->
+    <path d="M372 268 C 380 122, 644 122, 652 268" fill="none" stroke="#546670" stroke-width="30"/>
+    <path d="M372 268 C 380 122, 644 122, 652 268" fill="none" stroke="#1f4e56" stroke-width="8"/>
+    <path d="M392 250 C 404 160, 620 160, 632 250" fill="none" stroke="#8fa3ad" stroke-width="7" opacity="0.9"/>
+    <!-- hastes de ajuste de altura -->
+    <path d="M372 262 L372 322" stroke="#546670" stroke-width="22"/>
+    <path d="M652 262 L652 322" stroke="#546670" stroke-width="22"/>
+    <!-- conchas -->
+    <ellipse cx="372" cy="352" rx="58" ry="74" fill="#3b4a53" stroke-width="9"/>
+    <ellipse cx="372" cy="352" rx="36" ry="50" fill="#2a363d" stroke-width="7"/>
+    <ellipse cx="652" cy="352" rx="58" ry="74" fill="#3b4a53" stroke-width="9"/>
+    <ellipse cx="652" cy="352" rx="36" ry="50" fill="#2a363d" stroke-width="7"/>
+    <!-- maos ajustando as conchas -->
+    <path d="M256 438 C 240 392, 258 344, 302 322 C 340 304, 384 314, 402 344
+             C 418 372, 414 414, 392 438 C 366 466, 296 470, 268 456 Z"
+          fill="#f2cfb0" stroke-width="9"/>
+    <g fill="none" stroke="#1f4e56" stroke-width="6" opacity="0.9">
+      <path d="M330 328 C 350 348, 356 384, 344 414"/>
+      <path d="M366 336 C 386 358, 390 392, 378 420"/>
+      <path d="M296 332 C 314 352, 320 388, 310 416"/>
+    </g>
+    <path d="M768 438 C 784 392, 766 344, 722 322 C 684 304, 640 314, 622 344
+             C 606 372, 610 414, 632 438 C 658 466, 728 470, 756 456 Z"
+          fill="#f2cfb0" stroke-width="9"/>
+    <g fill="none" stroke="#1f4e56" stroke-width="6" opacity="0.9">
+      <path d="M694 328 C 674 348, 668 384, 680 414"/>
+      <path d="M658 336 C 638 358, 634 392, 646 420"/>
+      <path d="M728 332 C 710 352, 704 388, 714 416"/>
+    </g>
+  </g>
+  <!-- setas de ajuste de altura das conchas -->
+  <g fill="none" stroke="#0d7a80" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M198 300 L198 400"/>
+    <path d="M180 318 L198 300 L216 318"/>
+    <path d="M180 382 L198 400 L216 382"/>
+    <path d="M826 300 L826 400"/>
+    <path d="M808 318 L826 300 L844 318"/>
+    <path d="M808 382 L826 400 L844 382"/>
+  </g>
+</svg>
