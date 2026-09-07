@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Filtro mecanico de reposicao">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <g stroke="#0d7a80" stroke-linejoin="round">
+    <ellipse cx="320" cy="260" rx="168" ry="96" fill="#aebfc6" stroke-width="10"/>
+    <ellipse cx="320" cy="228" rx="168" ry="96" fill="#eef3f5" stroke-width="10"/>
+    <ellipse cx="320" cy="228" rx="112" ry="60" fill="none" stroke-width="6" opacity="0.6"/>
+    <ellipse cx="320" cy="228" rx="60" ry="30" fill="none" stroke-width="6" opacity="0.6"/>
+  </g>
+  <g stroke="#0d7a80" stroke-width="5" stroke-linecap="round" opacity="0.55">
+    <path d="M320 228 L320 132"/>
+    <path d="M320 228 L232 184"/>
+    <path d="M320 228 L408 184"/>
+    <path d="M320 228 L212 244"/>
+    <path d="M320 228 L428 244"/>
+  </g>
+</svg>

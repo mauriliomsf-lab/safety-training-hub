@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Cartucho quimico de reposicao">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <g stroke="#0d7a80" stroke-linejoin="round">
+    <rect x="220" y="120" width="200" height="260" rx="26" fill="#aebfc6" stroke-width="10"/>
+    <rect x="220" y="120" width="200" height="46" rx="20" fill="#93a8b1" stroke-width="9"/>
+    <rect x="220" y="334" width="200" height="46" rx="20" fill="#93a8b1" stroke-width="9"/>
+    <circle cx="320" cy="250" r="66" fill="#eef3f5" stroke-width="9"/>
+    <g stroke-width="6" stroke-linecap="round">
+      <path d="M292 224 L292 276"/>
+      <path d="M320 218 L320 282"/>
+      <path d="M348 224 L348 276"/>
+    </g>
+  </g>
+</svg>

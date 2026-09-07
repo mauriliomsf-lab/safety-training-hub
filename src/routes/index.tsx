@@ -138,7 +138,15 @@ function TreinamentoApp() {
         />
       );
     case 16:
-      return <Page16 nome={nome} matricula={matricula} onNext={reiniciarSessao} />;
+      return (
+        <Page16
+          nome={nome}
+          matricula={matricula}
+          onNext={reiniciarSessao}
+          onNomeChange={setNome}
+          onMatriculaChange={setMatricula}
+        />
+      );
     default:
       return null;
   }

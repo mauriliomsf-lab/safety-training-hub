@@ -18,6 +18,8 @@ import pintura from "@/assets/pintura-solvente.jpg";
 import eprFacialInteira from "@/assets/epr-facial-inteira.svg";
 import eprSemifacial from "@/assets/epr-semifacial.svg";
 import eprPff from "@/assets/epr-pff.svg";
+import eprCartuchoQuimico from "@/assets/epr-cartucho-quimico.svg";
+import eprFiltroMecanico from "@/assets/epr-filtro-mecanico.svg";
 import respiradores from "@/assets/ppr-respiradores.svg";
 import solda from "@/assets/manutencao-solda.jpg";
 import icoRiscoBiologico from "@/assets/ico-risco-biologico.png";
@@ -36,29 +38,34 @@ import agVapores from "@/assets/ag-vapores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------- Página 6 ------------------------------- */
-/** Seta diagonal grande, em tom cinza-azulado, usada no diagrama Perigo/controle. */
-function SetaDiagonal({ sentido }: { sentido: "cima-direita" | "baixo-esquerda" }) {
+/**
+ * Par de setas grandes cruzadas em X, em tom cinza-azulado: uma diagonal
+ * cima-direita sobreposta a uma diagonal baixo-esquerda, usado no diagrama
+ * Perigo/controle (um par junto a cada bloco).
+ */
+function ParDeSetasCruzadas() {
   return (
     <svg
       viewBox="0 0 120 120"
       role="img"
-      aria-label={
-        sentido === "cima-direita"
-          ? "Seta grande apontando para cima e para a direita"
-          : "Seta grande apontando para baixo e para a esquerda"
-      }
+      aria-label="Par de setas cruzadas em X, apontando em direções opostas"
       className="size-20 shrink-0 sm:size-24"
     >
       <g
-        transform={sentido === "cima-direita" ? undefined : "rotate(180 60 60)"}
         fill="none"
         stroke="oklch(0.58 0.04 250)"
         strokeWidth={14}
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M26 94 L92 28" />
-        <path d="M56 28 L92 28 L92 64" />
+        <g>
+          <path d="M26 94 L92 28" />
+          <path d="M56 28 L92 28 L92 64" />
+        </g>
+        <g transform="rotate(180 60 60)">
+          <path d="M26 94 L92 28" />
+          <path d="M56 28 L92 28 L92 64" />
+        </g>
       </g>
     </svg>
   );
@@ -159,10 +166,10 @@ export function Page06({ onNext, onBackToStart }: PageProps) {
               Perigo - controle
             </p>
           </Panel>
-          <SetaDiagonal sentido="cima-direita" />
+          <ParDeSetasCruzadas />
         </div>
         <div className="flex items-center gap-3">
-          <SetaDiagonal sentido="baixo-esquerda" />
+          <ParDeSetasCruzadas />
           <Panel className="flex-1">
             <SubTitle>Riscos Ocupacionais ‘compatíveis’</SubTitle>
             <p className="text-sm">Operação e Atividades com</p>
@@ -565,6 +572,30 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
             "Semi-facial"
           )}
         </CircleItem>
+        <div className="flex items-center gap-2">
+          <figure className="w-16 text-center">
+            <img
+              src={eprCartuchoQuimico}
+              alt="Cartucho químico de reposição do respirador de manutenção"
+              loading="lazy"
+              className="mx-auto size-14 object-contain"
+            />
+            <figcaption className="mt-1 text-[10px] leading-tight text-muted-foreground">
+              Cartucho químico
+            </figcaption>
+          </figure>
+          <figure className="w-16 text-center">
+            <img
+              src={eprFiltroMecanico}
+              alt="Filtro mecânico de reposição do respirador de manutenção"
+              loading="lazy"
+              className="mx-auto size-14 object-contain"
+            />
+            <figcaption className="mt-1 text-[10px] leading-tight text-muted-foreground">
+              Filtro mecânico
+            </figcaption>
+          </figure>
+        </div>
         <CircleItem label="Descartáveis" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
           {duplaAberta ? (
             <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">

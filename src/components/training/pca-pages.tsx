@@ -17,7 +17,7 @@ import {
 
 import anatomia from "@/assets/anatomia-ouvido.jpg";
 import colocacao from "@/assets/colocacao-abafador-nuca.svg";
-import higiene from "@/assets/higiene-auditiva.jpg";
+import higiene from "@/assets/higiene-abafador-pano.svg";
 import higienePlugs from "@/assets/higiene-plugs.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
 import plugSequencia from "@/assets/plug-sequencia.jpg";
@@ -580,6 +580,62 @@ export const NR6_ITENS = [
   "e) cumprir as determinações da organização sobre o uso adequado.",
 ];
 
+/**
+ * Campo travado por padrão com o valor definido na Página 1. Um ícone de
+ * caneta ao lado destrava o campo para edição; sem clicar, o valor original
+ * é mantido.
+ */
+function CampoTravavel({
+  label,
+  value,
+  onChange,
+  ariaLabel,
+}: {
+  label: string;
+  value: string;
+  onChange?: ((v: string) => void) | undefined;
+  ariaLabel: string;
+}) {
+  const [destravado, setDestravado] = useState(false);
+
+  if (!onChange) {
+    return (
+      <Panel>
+        <SubTitle>{label}</SubTitle>
+        <p className="text-sm text-muted-foreground">{value || "—"}</p>
+      </Panel>
+    );
+  }
+
+  return (
+    <Panel>
+      <SubTitle>{label}</SubTitle>
+      <div className="flex items-center gap-2">
+        <input
+          value={value}
+          readOnly={!destravado}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={ariaLabel}
+          className={`w-full rounded-md border px-3 py-2 text-sm ${
+            destravado
+              ? "border-input bg-background"
+              : "border-input bg-muted text-muted-foreground"
+          }`}
+        />
+        <button
+          type="button"
+          onClick={() => setDestravado(true)}
+          aria-label={`Editar ${ariaLabel.toLowerCase()}`}
+          aria-pressed={destravado}
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-brand hover:text-brand"
+        >
+          <span aria-hidden="true">✎</span>
+        </button>
+      </div>
+    </Panel>
+  );
+}
+
 export function TermoPage({
   track,
   paragrafos,
@@ -645,32 +701,13 @@ export function TermoPage({
 
       <SectionTitle>Confirme seus dados</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Panel>
-          <SubTitle>Nome</SubTitle>
-          {onNomeChange ? (
-            <input
-              value={nome}
-              onChange={(e) => onNomeChange(e.target.value)}
-              aria-label="Nome"
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-            />
-          ) : (
-            <p className="text-sm text-muted-foreground">{nome || "—"}</p>
-          )}
-        </Panel>
-        <Panel>
-          <SubTitle>Matrícula</SubTitle>
-          {onMatriculaChange ? (
-            <input
-              value={matricula}
-              onChange={(e) => onMatriculaChange(e.target.value)}
-              aria-label="Matrícula"
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-            />
-          ) : (
-            <p className="text-sm text-muted-foreground">{matricula || "—"}</p>
-          )}
-        </Panel>
+        <CampoTravavel label="Nome" value={nome} onChange={onNomeChange} ariaLabel="Nome" />
+        <CampoTravavel
+          label="Matrícula"
+          value={matricula}
+          onChange={onMatriculaChange}
+          ariaLabel="Matrícula"
+        />
       </div>
 
       <SectionTitle>Assinatura</SectionTitle>

@@ -300,8 +300,23 @@ export const ETAPAS_HIGIENIZACAO = [
   },
 ];
 
+/** Os dois tipos de ensaio de vedação, com o texto explicativo revelado ao clicar. */
+export const ENSAIOS_VEDACAO = [
+  {
+    nome: "Ensaio de Vedação Qualitativo",
+    texto:
+      "Utiliza a própria percepção do usuário a um agente de teste (como sacarina, Bitrex ou fumaça irritante) borrifado dentro de uma touca. Se o usuário não perceber o gosto, odor ou irritação, considera-se a vedação satisfatória. É um método subjetivo, que não depende de equipamento de medição.",
+  },
+  {
+    nome: "Ensaio de Vedação Quantitativo",
+    texto:
+      "Utiliza equipamento de medição (como um contador de partículas) que compara a concentração de partículas no ar ambiente e dentro da peça facial, calculando numericamente o fator de vedação obtido. É um método objetivo, mais preciso que o qualitativo.",
+  },
+];
+
 export function Page13({ onNext, onBackToStart }: PageProps) {
   const podeVoltar = useReadingTimer(6000);
+  const [ensaioAberto, setEnsaioAberto] = useState<number | null>(null);
   return (
     <PageShell
       title={TITLE}
@@ -342,8 +357,28 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
         qualitativos - abaixo alguns exemplos que existem no mercado.
       </Panel>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
-        <Panel tone="brand">Ensaio de Vedação Qualitativo</Panel>
-        <Panel tone="brand">Ensaio de Vedação Quantitativo</Panel>
+        {ENSAIOS_VEDACAO.map((ensaio, i) => {
+          const aberto = ensaioAberto === i;
+          return (
+            <Panel key={ensaio.nome} tone="brand">
+              <button
+                type="button"
+                aria-expanded={aberto}
+                onClick={() => setEnsaioAberto((atual) => (atual === i ? null : i))}
+                className="flex w-full items-center justify-between gap-2 text-left"
+              >
+                <span className="font-semibold">{ensaio.nome}</span>
+                <span
+                  aria-hidden="true"
+                  className={`shrink-0 text-brand-deep transition-transform ${aberto ? "rotate-180" : ""}`}
+                >
+                  ▾
+                </span>
+              </button>
+              {aberto ? <p className="mt-2 text-xs leading-relaxed">{ensaio.texto}</p> : null}
+            </Panel>
+          );
+        })}
       </div>
 
       <SectionTitle>Situações de emergência e o uso de respiradores</SectionTitle>
@@ -626,10 +661,14 @@ export function Page16({
   nome,
   matricula,
   onNext,
+  onNomeChange,
+  onMatriculaChange,
 }: {
   nome: string;
   matricula: string;
   onNext: () => void;
+  onNomeChange?: ((v: string) => void) | undefined;
+  onMatriculaChange?: ((v: string) => void) | undefined;
 }) {
   return (
     <TermoPage
@@ -640,6 +679,8 @@ export function Page16({
       nome={nome}
       matricula={matricula}
       onNext={onNext}
+      onNomeChange={onNomeChange}
+      onMatriculaChange={onMatriculaChange}
     />
   );
 }
