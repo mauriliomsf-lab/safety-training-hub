@@ -447,7 +447,6 @@ function UsoIncorretoBlocos() {
         className="mt-4"
         src={pulmoes}
         alt="Pulmão normal, pulmão com pneumoconiose e raio X de pulmão com pneumonite"
-        caption="Pulmão normal • Pulmão com pneumoconiose • Raio X de pulmão com pneumonite"
       />
 
       <SectionTitle>Omissão do Uso</SectionTitle>
