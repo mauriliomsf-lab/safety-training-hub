@@ -38,34 +38,29 @@ import agVapores from "@/assets/ag-vapores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------- Página 6 ------------------------------- */
-/**
- * Par de setas grandes cruzadas em X, em tom cinza-azulado: uma diagonal
- * cima-direita sobreposta a uma diagonal baixo-esquerda, usado no diagrama
- * Perigo/controle (um par junto a cada bloco).
- */
-function ParDeSetasCruzadas() {
+/** Seta diagonal grande, em tom cinza-azulado, usada no diagrama Perigo/controle. */
+function SetaDiagonal({ sentido }: { sentido: "cima-direita" | "baixo-esquerda" }) {
   return (
     <svg
       viewBox="0 0 120 120"
       role="img"
-      aria-label="Par de setas cruzadas em X, apontando em direções opostas"
+      aria-label={
+        sentido === "cima-direita"
+          ? "Seta grande apontando para cima e para a direita"
+          : "Seta grande apontando para baixo e para a esquerda"
+      }
       className="size-20 shrink-0 sm:size-24"
     >
       <g
+        transform={sentido === "cima-direita" ? undefined : "rotate(180 60 60)"}
         fill="none"
         stroke="oklch(0.58 0.04 250)"
         strokeWidth={14}
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <g>
-          <path d="M26 94 L92 28" />
-          <path d="M56 28 L92 28 L92 64" />
-        </g>
-        <g transform="rotate(180 60 60)">
-          <path d="M26 94 L92 28" />
-          <path d="M56 28 L92 28 L92 64" />
-        </g>
+        <path d="M26 94 L92 28" />
+        <path d="M56 28 L92 28 L92 64" />
       </g>
     </svg>
   );
@@ -166,10 +161,10 @@ export function Page06({ onNext, onBackToStart }: PageProps) {
               Perigo - controle
             </p>
           </Panel>
-          <ParDeSetasCruzadas />
+          <SetaDiagonal sentido="cima-direita" />
         </div>
         <div className="flex items-center gap-3">
-          <ParDeSetasCruzadas />
+          <SetaDiagonal sentido="baixo-esquerda" />
           <Panel className="flex-1">
             <SubTitle>Riscos Ocupacionais ‘compatíveis’</SubTitle>
             <p className="text-sm">Operação e Atividades com</p>
