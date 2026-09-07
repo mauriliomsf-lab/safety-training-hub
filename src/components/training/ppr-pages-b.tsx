@@ -213,7 +213,7 @@ export function Page12({ onNext }: PageProps) {
           <Figure
             className="mx-auto mb-3 max-w-[260px]"
             src={testeNegativa}
-            alt="Palma da mão cobrindo a face do cartucho do respirador"
+            alt="As duas mãos cobrindo as faces dos dois cartuchos do respirador"
           />
           Coloque a palma da mão de modo a cobrir a face do filtro ou cartucho. Inale levemente. Se
           você sentir que a peça facial contraiu levemente e chegou mais perto da sua face sem
