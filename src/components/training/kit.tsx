@@ -22,11 +22,7 @@ export function useReadingTimer(ms: number, active = true) {
 }
 
 /** Campo de assinatura digital (dedo, caneta digital ou mouse). */
-export function useSignaturePad({
-  onChange,
-}: {
-  onChange: (hasSignature: boolean) => void;
-}) {
+export function useSignaturePad({ onChange }: { onChange: (hasSignature: boolean) => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
 
@@ -77,11 +73,7 @@ export function useSignaturePad({
   return { canvasRef, clear, start, move, end };
 }
 
-export function SignatureCanvas({
-  pad,
-}: {
-  pad: ReturnType<typeof useSignaturePad>;
-}) {
+export function SignatureCanvas({ pad }: { pad: ReturnType<typeof useSignaturePad> }) {
   return (
     <canvas
       ref={pad.canvasRef}
@@ -115,12 +107,16 @@ export function PageShell({
           {title}
         </h1>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-4 py-6 pb-28">{children}</main>
-      <div className="fixed inset-x-0 bottom-0 border-t border-border bg-background/95 px-4 py-3 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3">
-          {footer}
+      <main className={`mx-auto w-full max-w-5xl px-4 py-6 ${footer ? "pb-28" : "pb-10"}`}>
+        {children}
+      </main>
+      {footer ? (
+        <div className="fixed inset-x-0 bottom-0 border-t border-border bg-background/95 px-4 py-3 backdrop-blur">
+          <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3">
+            {footer}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
@@ -199,7 +195,9 @@ export function Figure({
         className="w-full rounded-xl border border-border object-cover shadow-panel"
       />
       {caption ? (
-        <figcaption className="mt-1 text-center text-xs text-muted-foreground">{caption}</figcaption>
+        <figcaption className="mt-1 text-center text-xs text-muted-foreground">
+          {caption}
+        </figcaption>
       ) : null}
     </figure>
   );
@@ -227,7 +225,7 @@ export function AdvanceButton({
   );
 }
 
-/** Botão circular azul de retorno à Página 1. Na Fase 1 é apenas estrutural. */
+/** Botão circular de retorno à Página 1: apenas contorno fino, fundo transparente. */
 export function BackToStartButton({
   onClick,
   enabled = false,
@@ -241,18 +239,10 @@ export function BackToStartButton({
       onClick={enabled && onClick ? onClick : undefined}
       disabled={!enabled}
       aria-label="Retornar à seleção de módulo"
-      className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-lg text-brand-foreground shadow-circle transition-opacity disabled:opacity-30"
+      className="inline-flex size-11 items-center justify-center rounded-full border border-brand bg-transparent text-lg text-brand transition-opacity disabled:opacity-30"
     >
       ←
     </button>
-  );
-}
-
-export function PageNumber({ n }: { n: number }) {
-  return (
-    <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand-deep">
-      Página {n} de 16
-    </span>
   );
 }
 
@@ -261,20 +251,37 @@ export function CircleItem({
   children,
   onClick,
   active,
+  bgImage,
+  bgAlt,
 }: {
   label: string;
   children?: ReactNode | undefined;
   onClick?: (() => void) | undefined;
   active?: boolean | undefined;
+  /** Foto de fundo do círculo; fica transparente quando o círculo é revelado. */
+  bgImage?: string | undefined;
+  bgAlt?: string | undefined;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`relative flex size-32 flex-col items-center justify-center overflow-hidden rounded-full border-2 p-3 text-center text-xs font-semibold shadow-circle transition-colors sm:size-40 ${
-        active ? "border-brand bg-brand-soft text-brand-deep" : "border-border bg-card text-foreground"
+        active
+          ? "border-brand bg-brand-soft text-brand-deep"
+          : "border-border bg-card text-foreground"
       }`}
     >
+      {bgImage ? (
+        <img
+          src={bgImage}
+          alt={bgAlt ?? ""}
+          loading="lazy"
+          className={`pointer-events-none absolute inset-0 size-full object-cover transition-opacity duration-500 ${
+            active ? "opacity-0" : "opacity-100"
+          }`}
+        />
+      ) : null}
       {children ?? label}
     </button>
   );

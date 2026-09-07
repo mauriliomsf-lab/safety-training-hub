@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Peca facial filtrante descartavel">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <!-- tirantes elasticos, ancorados nas bordas da peca -->
+  <g fill="none" stroke="#7d919a" stroke-width="13" stroke-linecap="round">
+    <path d="M172 186 C 116 160, 78 188, 76 236"/>
+    <path d="M468 186 C 524 160, 562 188, 564 236"/>
+    <path d="M214 330 C 146 356, 100 374, 92 412"/>
+    <path d="M426 330 C 494 356, 540 374, 548 412"/>
+  </g>
+  <!-- corpo da PFF: topo largo na ponte do nariz, afunilando ate o queixo -->
+  <path d="M176 152 C 230 110, 410 110, 464 152
+           C 480 204, 464 284, 420 340
+           C 388 384, 344 404, 320 404
+           C 296 404, 252 384, 220 340
+           C 176 284, 160 204, 176 152 Z"
+        fill="#f4f7f8" stroke="#0d7a80" stroke-width="9" stroke-linejoin="round"/>
+  <!-- clipe nasal moldavel -->
+  <path d="M232 150 C 274 128, 366 128, 408 150" fill="none" stroke="#9fb3bb" stroke-width="20" stroke-linecap="round"/>
+  <path d="M232 150 C 274 128, 366 128, 408 150" fill="none" stroke="#0d7a80" stroke-width="6" stroke-linecap="round"/>
+  <!-- dobras horizontais da concha -->
+  <g fill="none" stroke="#0d7a80" stroke-width="6" stroke-linecap="round" opacity="0.75">
+    <path d="M186 208 C 252 190, 388 190, 454 208"/>
+    <path d="M192 264 C 254 246, 386 246, 448 264"/>
+    <path d="M212 320 C 262 306, 378 306, 428 320"/>
+  </g>
+  <!-- costura da borda de vedacao -->
+  <path d="M190 160 C 240 124, 400 124, 450 160
+           C 464 206, 450 278, 410 330
+           C 380 370, 342 390, 320 390
+           C 298 390, 260 370, 230 330
+           C 190 278, 176 206, 190 160 Z"
+        fill="none" stroke="#0d7a80" stroke-width="3" stroke-dasharray="9 10" opacity="0.7"/>
+</svg>

@@ -5,7 +5,6 @@ import {
   BackToStartButton,
   Bullets,
   Figure,
-  PageNumber,
   PageShell,
   Panel,
   SectionTitle,
@@ -17,7 +16,7 @@ import {
 } from "./kit";
 
 import anatomia from "@/assets/anatomia-ouvido.jpg";
-import colocacao from "@/assets/colocacao-abafador.jpg";
+import colocacao from "@/assets/colocacao-abafador-nuca.svg";
 import higiene from "@/assets/higiene-auditiva.jpg";
 import higienePlugs from "@/assets/higiene-plugs.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
@@ -44,17 +43,16 @@ export function Page02({ onNext, onBackToStart }: PageProps) {
       footer={
         <>
           <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <PageNumber n={2} />
           <AdvanceButton onClick={onNext} />
         </>
       }
     >
       <SectionTitle>Introdução</SectionTitle>
       <Panel>
-        O treinamento dos elementos do Programa de Conservação Auditiva (PCA) busca implementar ações
-        planejadas e coordenadas que visem melhorar a qualidade de vida do trabalhador, evitando a
-        perda auditiva e reduzindo os efeitos extra auditivos, causados pela exposição ocupacional a
-        agentes otoagressores da audição.
+        O treinamento dos elementos do Programa de Conservação Auditiva (PCA) busca implementar
+        ações planejadas e coordenadas que visem melhorar a qualidade de vida do trabalhador,
+        evitando a perda auditiva e reduzindo os efeitos extra auditivos, causados pela exposição
+        ocupacional a agentes otoagressores da audição.
       </Panel>
 
       <SectionTitle>Agente de Risco</SectionTitle>
@@ -138,8 +136,8 @@ export function Page02({ onNext, onBackToStart }: PageProps) {
       <SectionTitle>A exposição inadequada ao ruído</SectionTitle>
       <Panel tone="pca">
         A exposição prolongada a níveis de pressão sonora intensos (acima de 85 dB(A), em horas de
-        trabalho diário) é muitas vezes comum nas atividades profissionais. Neste cenário, a proteção
-        auditiva individual ou coletiva é essencial para proteção à saúde.
+        trabalho diário) é muitas vezes comum nas atividades profissionais. Neste cenário, a
+        proteção auditiva individual ou coletiva é essencial para proteção à saúde.
       </Panel>
     </PageShell>
   );
@@ -187,7 +185,9 @@ export function Page03({ onNext }: PageProps) {
   const medidoNum = Number(medido.replace(",", "."));
   const medidoValido = medido.trim() !== "" && Number.isFinite(medidoNum);
   const atenuado =
-    medidoValido && atenuacao !== null ? String(Math.round((medidoNum - atenuacao) * 100) / 100) : "";
+    medidoValido && atenuacao !== null
+      ? String(Math.round((medidoNum - atenuacao) * 100) / 100)
+      : "";
   const podeAvancar = medidoValido && atenuacao !== null;
 
   useEffect(() => {
@@ -200,7 +200,6 @@ export function Page03({ onNext }: PageProps) {
       track="PCA"
       footer={
         <>
-          <PageNumber n={3} />
           <AdvanceButton onClick={onNext} disabled={!podeAvancar} />
         </>
       }
@@ -238,12 +237,12 @@ export function Page03({ onNext }: PageProps) {
         </Panel>
         <div className="space-y-4">
           <Panel tone="pca">
-            Além das medidas de proteção coletiva (que devem ser periodicamente discutidas, revisadas
-            e implementadas pelos responsáveis nas empresas), é fundamental que o trabalhador saiba
-            das ações de monitoramento periódico exigidas pela NR-07 (PCMSO) — realização de exames
-            audiométricos admissional, periódicos e demissional — e as orientações sobre uso correto
-            e cuidados necessários, sobre seu EPI – equipamento de proteção individual – para
-            proteção auditiva.
+            Além das medidas de proteção coletiva (que devem ser periodicamente discutidas,
+            revisadas e implementadas pelos responsáveis nas empresas), é fundamental que o
+            trabalhador saiba das ações de monitoramento periódico exigidas pela NR-07 (PCMSO) —
+            realização de exames audiométricos admissional, periódicos e demissional — e as
+            orientações sobre uso correto e cuidados necessários, sobre seu EPI – equipamento de
+            proteção individual – para proteção auditiva.
           </Panel>
           <Panel tone="warn">
             Zumbido, ou barulho no ouvido permanente, aumento da intensidade da voz ao falar,
@@ -257,8 +256,8 @@ export function Page03({ onNext }: PageProps) {
       <Panel>
         Todos os protetores auriculares, sejam plug ou abafadores de acoplamento ou de arco, devem
         ser validados pelo setor técnico responsável para garantir o que o equipamento disponível
-        possua o fator de eficiência para atenuação, compatível às exposições ao ruído que trabalhador
-        possa estar exposto no seu trabalho.
+        possua o fator de eficiência para atenuação, compatível às exposições ao ruído que
+        trabalhador possa estar exposto no seu trabalho.
       </Panel>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-3">
@@ -355,7 +354,11 @@ export function Page03({ onNext }: PageProps) {
             alt="Sequência A, B, C e D de colocação do plug no canal auditivo, com indicação de certo e errado"
             caption="Colocação do plug: A, B, C e D (certo e errado)"
           />
-          <Figure src={protetores} alt="Protetores auditivos tipo plug" caption="Colocação do plug" />
+          <Figure
+            src={protetores}
+            alt="Protetores auditivos tipo plug"
+            caption="Colocação do plug"
+          />
         </div>
         <Panel>
           <Bullets
@@ -450,7 +453,6 @@ export function Page04({ onNext }: PageProps) {
       track="PCA"
       footer={
         <>
-          <PageNumber n={4} />
           <AdvanceButton onClick={onNext} disabled={!completo} />
         </>
       }
@@ -471,13 +473,14 @@ export function Page04({ onNext }: PageProps) {
         </div>
         <div className="space-y-4">
           <Panel>
-            Retire com cuidado, as almofadas externas (se forem removíveis). Limpe com um pano úmido,
-            as partes externas do abafador e as almofadas, delicadamente. Seque com papel toalha.
+            Retire com cuidado, as almofadas externas (se forem removíveis). Limpe com um pano
+            úmido, as partes externas do abafador e as almofadas, delicadamente. Seque com papel
+            toalha.
           </Panel>
           <Panel>
             Lave e enxágue os plugs de silicone em água fria. Remova o excesso de umidade com uma
-            folha de papel-toalha para acelerar o processo de secagem. Deixe os protetores secarem ao
-            ar livre.
+            folha de papel-toalha para acelerar o processo de secagem. Deixe os protetores secarem
+            ao ar livre.
           </Panel>
         </div>
       </div>
@@ -584,7 +587,6 @@ export function TermoPage({
   imagemAlt,
   nome,
   matricula,
-  pageNumber,
   onNext,
   onNomeChange,
   onMatriculaChange,
@@ -595,7 +597,6 @@ export function TermoPage({
   imagemAlt: string;
   nome: string;
   matricula: string;
-  pageNumber: number;
   onNext: () => void;
   onNomeChange?: ((v: string) => void) | undefined;
   onMatriculaChange?: ((v: string) => void) | undefined;
@@ -624,7 +625,6 @@ export function TermoPage({
     <PageShell
       title={track === "PCA" ? TITLE : "Treinamento de proteção respiratória"}
       track={track}
-      footer={<PageNumber n={pageNumber} />}
     >
       <SectionTitle>Termo de Responsabilidade</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-[1fr_260px]">
@@ -720,7 +720,6 @@ export function Page05({
       imagemAlt="Equipamentos de proteção auditiva"
       nome={nome}
       matricula={matricula}
-      pageNumber={5}
       onNext={onNext}
       onNomeChange={onNomeChange}
       onMatriculaChange={onMatriculaChange}
