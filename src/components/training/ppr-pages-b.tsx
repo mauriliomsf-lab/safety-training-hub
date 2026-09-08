@@ -19,8 +19,8 @@ import pulmoes from "@/assets/pulmoes.svg";
 import respiradores from "@/assets/ppr-respiradores.svg";
 import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
 import retirada from "@/assets/retirada-pdf.jpg";
-import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.jpg";
-import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.jpg";
+import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.webp";
+import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.webp";
 import testeNegativa from "@/assets/teste-pressao-negativa-pdf.jpg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
 import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo-pdf.jpg";
@@ -155,8 +155,8 @@ export function Page12({ onNext }: PageProps) {
       }
     >
       <SectionTitle>Retirada</SectionTitle>
-      <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
-        <Panel>
+      <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
+        <Panel className="flex flex-col justify-center">
           <Bullets
             items={[
               "não tocar na parte frontal da PFF segurar e remover o tirante inferior, e prosseguir mesmo procedimento com o tirante superior.",
@@ -173,8 +173,8 @@ export function Page12({ onNext }: PageProps) {
 
       <SectionTitle>Modelos de Manutenção</SectionTitle>
       <div className="space-y-4">
-        <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
-          <Panel>
+        <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
+          <Panel className="flex flex-col justify-center">
             <SubTitle>Tirante padrão</SubTitle>
             <Bullets
               items={[
@@ -188,8 +188,8 @@ export function Page12({ onNext }: PageProps) {
             imgClassName={PHOTO_IMG_CLASS}
           />
         </div>
-        <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
-          <Panel>
+        <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
+          <Panel className="flex flex-col justify-center">
             <SubTitle>Tirante deslizante</SubTitle>
             <Bullets
               items={[
