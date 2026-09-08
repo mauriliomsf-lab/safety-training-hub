@@ -27,6 +27,7 @@ import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.webp";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.webp";
 import testeNegativa from "@/assets/teste-pressao-negativa-pdf.jpg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
+import testePositivaPdf from "@/assets/teste-pressao-positiva-pdf.jpg";
 import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo-pdf.jpg";
 import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo-pdf.jpg";
 import hig1 from "@/assets/hig-1-remover-filtros-pdf.jpg";
@@ -217,8 +218,8 @@ export function Page12({ onNext }: PageProps) {
         <Panel tone="ppr">
           <SubTitle>Teste de Pressão Negativa</SubTitle>
           <Figure
-            className="mx-auto mb-3 max-w-[260px]"
-            imgClassName={PHOTO_IMG_CLASS}
+            className={PHOTO_SQUARE_WRAP_CLASS}
+            imgClassName={PHOTO_SQUARE_IMG_CLASS}
             src={testeNegativa}
             alt="As duas mãos cobrindo as faces dos dois cartuchos do respirador"
           />
@@ -231,10 +232,10 @@ export function Page12({ onNext }: PageProps) {
         <Panel tone="ppr">
           <SubTitle>Teste de Pressão Positiva</SubTitle>
           <Figure
-            className="mx-auto mb-3 max-w-[260px]"
-            imgClassName={PHOTO_IMG_CLASS}
-            src={testePositiva}
-            alt="Palma da mão sobre a válvula de exalação do respirador"
+            className={PHOTO_SQUARE_WRAP_CLASS}
+            imgClassName={PHOTO_SQUARE_IMG_CLASS}
+            src={testePositivaPdf}
+            alt="Palma da mão sobre a válvula de exalação do respirador, respirador com cartuchos vermelhos"
           />
           Coloque a palma da mão sobre a válvula de exalação e exale suavemente. Se a peça facial
           estiver selada e não houver vazamento de ar entre seu rosto e a peça, é sinal de que uma
