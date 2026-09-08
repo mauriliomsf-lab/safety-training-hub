@@ -23,12 +23,12 @@ import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.jpg";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.jpg";
 import testeNegativa from "@/assets/teste-pressao-negativa-pdf.jpg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
-import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo.svg";
-import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo.svg";
-import hig1 from "@/assets/hig-1-remover-filtros.svg";
-import hig2 from "@/assets/hig-2-lavar.svg";
-import hig3 from "@/assets/hig-3-verificar.svg";
-import hig4 from "@/assets/hig-4-remontar.svg";
+import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo-pdf.jpg";
+import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo-pdf.jpg";
+import hig1 from "@/assets/hig-1-remover-filtros-pdf.jpg";
+import hig2 from "@/assets/hig-2-lavar-pdf.jpg";
+import hig3 from "@/assets/hig-3-verificar-pdf.jpg";
+import hig4 from "@/assets/hig-4-remontar-pdf.jpg";
 
 const TITLE = "Treinamento de proteção respiratória";
 
@@ -349,7 +349,7 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
               width={512}
               height={512}
               loading="lazy"
-              className="mx-auto mb-2 size-24 object-contain"
+              className="mx-auto mb-2 size-24 rounded-xl border-2 border-sky-200 object-cover shadow-panel"
             />
             <p className="mb-1 text-center text-xs font-semibold text-brand-deep">Etapa {i + 1}</p>
             {etapa.texto}
@@ -375,7 +375,7 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
                 width={400}
                 height={400}
                 loading="lazy"
-                className="mx-auto mb-2 size-28 object-contain"
+                className="mx-auto mb-2 size-28 rounded-xl border-2 border-sky-200 object-cover shadow-panel"
               />
               <button
                 type="button"
