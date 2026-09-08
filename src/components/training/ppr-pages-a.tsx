@@ -8,12 +8,15 @@ import {
   Figure,
   PageShell,
   Panel,
+  PHOTO_IMG_CLASS,
   SectionTitle,
   SubTitle,
   useReadingTimer,
   type PageProps,
 } from "./kit";
 
+import perigoMenosControle from "@/assets/perigo-menos-controle.jpg";
+import perigoMaisControle from "@/assets/perigo-mais-controle.jpg";
 import pintura from "@/assets/pintura-solvente.jpg";
 import eprFacialInteira from "@/assets/epr-facial-inteira-pdf.jpg";
 import eprSemifacial from "@/assets/epr-semifacial-pdf.jpg";
@@ -38,34 +41,6 @@ import agVapores from "@/assets/ag-vapores.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------- Página 6 ------------------------------- */
-/** Seta diagonal grande, em tom cinza-azulado, usada no diagrama Perigo/controle. */
-function SetaDiagonal({ sentido }: { sentido: "cima-direita" | "baixo-esquerda" }) {
-  return (
-    <svg
-      viewBox="0 0 120 120"
-      role="img"
-      aria-label={
-        sentido === "cima-direita"
-          ? "Seta grande apontando para cima e para a direita"
-          : "Seta grande apontando para baixo e para a esquerda"
-      }
-      className="size-20 shrink-0 sm:size-24"
-    >
-      <g
-        transform={sentido === "cima-direita" ? undefined : "rotate(180 60 60)"}
-        fill="none"
-        stroke="oklch(0.58 0.04 250)"
-        strokeWidth={14}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M26 94 L92 28" />
-        <path d="M56 28 L92 28 L92 64" />
-      </g>
-    </svg>
-  );
-}
-
 export const RISCOS_OCUPACIONAIS = [
   {
     nome: "Mecânicos / Acidentários",
@@ -153,24 +128,16 @@ export function Page06({ onNext, onBackToStart }: PageProps) {
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="flex items-center gap-3">
-          <Panel className="flex-1">
-            <SubTitle>+ Riscos Ocupacionais</SubTitle>
-            <p className="text-sm">Operação e Atividades com</p>
-            <p className="font-display text-base font-semibold text-destructive">
-              Perigo com - controle
-            </p>
-          </Panel>
-          <SetaDiagonal sentido="cima-direita" />
-        </div>
-        <div className="flex items-center gap-3">
-          <SetaDiagonal sentido="baixo-esquerda" />
-          <Panel className="flex-1">
-            <SubTitle>Riscos Ocupacionais ‘compatíveis’</SubTitle>
-            <p className="text-sm">Operação e Atividades com</p>
-            <p className="font-display text-base font-semibold text-ok">Perigo com + controle</p>
-          </Panel>
-        </div>
+        <Figure
+          src={perigoMenosControle}
+          alt="Seta ascendente: Riscos Ocupacionais aumentam com Perigo com menos controle"
+          imgClassName={PHOTO_IMG_CLASS}
+        />
+        <Figure
+          src={perigoMaisControle}
+          alt="Seta descendente: Riscos Ocupacionais 'compatíveis' com Perigo com mais controle"
+          imgClassName={PHOTO_IMG_CLASS}
+        />
       </div>
       <Panel tone="warn" className="mt-4 text-center font-semibold">
         O PERIGO É INERENTE A ATIVIDADE- OPERAÇÃO, MAS O RISCO PODE SER CONTROLADO
