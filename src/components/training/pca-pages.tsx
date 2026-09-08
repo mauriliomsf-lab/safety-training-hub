@@ -19,8 +19,8 @@ import {
 import anatomia from "@/assets/anatomia-ouvido.jpg";
 import abafadorAjusteNuca from "@/assets/abafador-ajuste-nuca.jpg";
 import abafadorCapacetePdf from "@/assets/abafador-capacete-pdf.jpg";
-import higiene from "@/assets/higiene-abafador-pano.svg";
-import higienePlugs from "@/assets/higiene-plugs.jpg";
+import higiene from "@/assets/higiene-abafador-pano-pdf.jpg";
+import higienePlugs from "@/assets/higiene-plugs-pdf.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
 import plugSequencia from "@/assets/plug-sequencia.jpg";
 import protArco from "@/assets/prot-arco.jpg";
@@ -472,12 +472,12 @@ export function Page04({ onNext }: PageProps) {
           <Figure
             src={higiene}
             alt="Mãos limpando o abafador auditivo com pano úmido"
-            caption="Limpeza do abafador"
+            imgClassName={PHOTO_IMG_CLASS}
           />
           <Figure
             src={higienePlugs}
             alt="Mãos lavando plugs de silicone em água corrente"
-            caption="Lavagem dos plugs de silicone"
+            imgClassName={PHOTO_IMG_CLASS}
           />
         </div>
         <div className="space-y-4">
