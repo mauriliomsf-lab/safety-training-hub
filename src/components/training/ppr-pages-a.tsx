@@ -424,16 +424,22 @@ export const TIPOS_EPR = [
     nome: "Facial inteira",
     img: eprFacialInteira,
     alt: "Respirador de peça facial inteira, com visor e cartucho frontal",
+    grupo: "facial" as const,
+    texto: TEXTO_FACIAL_INTEIRA,
   },
   {
     nome: "Semi-facial",
     img: eprSemifacial,
     alt: "Respirador semi-facial de manutenção, com dois cartuchos laterais",
+    grupo: "dupla" as const,
+    texto: TEXTO_SEMI_DESCARTAVEL,
   },
   {
     nome: "Peça facial filtrante (descartável)",
     img: eprPff,
     alt: "Peça facial filtrante descartável, com clipe nasal e tirantes elásticos",
+    grupo: "dupla" as const,
+    texto: TEXTO_SEMI_DESCARTAVEL,
   },
 ];
 
@@ -495,56 +501,38 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
       </Panel>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        {TIPOS_EPR.map((t) => (
-          <figure
-            key={t.nome}
-            className="rounded-xl border-2 border-sky-200 bg-card p-3 shadow-panel"
-          >
-            <img
-              src={t.img}
-              alt={t.alt}
-              loading="lazy"
-              className="mx-auto h-32 w-full object-contain sm:h-36"
-            />
-            <figcaption className="mt-2 text-center text-xs font-semibold text-brand-deep">
-              {t.nome}
-            </figcaption>
-          </figure>
-        ))}
+        {TIPOS_EPR.map((t) => {
+          const aberto = t.grupo === "facial" ? facialAberta : duplaAberta;
+          const onClick = () =>
+            t.grupo === "facial" ? setFacialAberta(true) : setDuplaAberta(true);
+          return (
+            <button
+              key={t.nome}
+              type="button"
+              onClick={onClick}
+              className="rounded-xl border-2 border-sky-200 bg-card p-3 text-left shadow-panel"
+            >
+              <div className="mx-auto flex min-h-32 w-full items-center justify-center sm:min-h-36">
+                {aberto ? (
+                  <span className="px-1 text-center text-[11px] leading-snug font-medium text-foreground">
+                    {t.texto}
+                  </span>
+                ) : (
+                  <img
+                    src={t.img}
+                    alt={t.alt}
+                    loading="lazy"
+                    className="h-32 w-full object-contain sm:h-36"
+                  />
+                )}
+              </div>
+              <p className="mt-2 text-center text-xs font-semibold text-brand-deep">{t.nome}</p>
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-        <CircleItem
-          label="Facial inteira"
-          active={facialAberta}
-          onClick={() => setFacialAberta(true)}
-        >
-          {facialAberta ? (
-            <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
-              {TEXTO_FACIAL_INTEIRA}
-            </span>
-          ) : (
-            "Facial inteira"
-          )}
-        </CircleItem>
-        <CircleItem label="Semi-facial" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
-          {duplaAberta ? (
-            <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
-              {TEXTO_SEMI_DESCARTAVEL}
-            </span>
-          ) : (
-            "Semi-facial"
-          )}
-        </CircleItem>
-        <CircleItem label="Descartáveis" active={duplaAberta} onClick={() => setDuplaAberta(true)}>
-          {duplaAberta ? (
-            <span className="px-1 text-[10px] leading-snug font-medium sm:text-xs">
-              {TEXTO_SEMI_DESCARTAVEL}
-            </span>
-          ) : (
-            "Descartáveis"
-          )}
-        </CircleItem>
         <button
           type="button"
           aria-label="Informações sobre peças de reposição"
