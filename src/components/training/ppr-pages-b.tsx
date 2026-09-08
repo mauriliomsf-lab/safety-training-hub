@@ -7,6 +7,7 @@ import {
   Figure,
   PageShell,
   Panel,
+  PHOTO_IMG_CLASS,
   SectionTitle,
   SubTitle,
   useReadingTimer,
@@ -17,9 +18,9 @@ import { NR6_ITENS, TermoPage } from "./pca-pages";
 import pulmoes from "@/assets/pulmoes.svg";
 import respiradores from "@/assets/ppr-respiradores.svg";
 import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
-import retirada from "@/assets/ppr-retirada.svg";
-import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao.svg";
-import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante.svg";
+import retirada from "@/assets/retirada-pdf.jpg";
+import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.jpg";
+import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.jpg";
 import testeNegativa from "@/assets/teste-pressao-negativa.svg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
 import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo.svg";
@@ -165,8 +166,8 @@ export function Page12({ onNext }: PageProps) {
         </Panel>
         <Figure
           src={retirada}
-          alt="Sequência A, B e C de retirada do respirador segurando pelos tirantes, sem tocar na parte frontal"
-          caption="Retirada: A, B e C"
+          alt="Sequência de retirada do respirador segurando pelos tirantes, sem tocar na parte frontal"
+          imgClassName={PHOTO_IMG_CLASS}
         />
       </div>
 
@@ -178,15 +179,13 @@ export function Page12({ onNext }: PageProps) {
             <Bullets
               items={[
                 "Coloque o respirador cobrindo o nariz e a boca, depois puxe o suporte para cima da cabeça.",
-                "Enquanto segura a extremidade dos tirantes com as mãos, deslize a peça facial para encaixar no seu rosto.",
-                "Encaixe as presilhas atrás do pescoço e ajuste os tirantes até obter um encaixe firme.",
               ]}
             />
           </Panel>
           <Figure
             src={tirantePadrao}
-            alt="Sequência A, B e C de colocação do respirador de manutenção com tirante padrão"
-            caption="Tirante padrão: A, B e C"
+            alt="Sequência de colocação do respirador de manutenção com tirante padrão, vista de frente"
+            imgClassName={PHOTO_IMG_CLASS}
           />
         </div>
         <div className="grid items-start gap-4 sm:grid-cols-[1fr_1fr]">
@@ -194,6 +193,7 @@ export function Page12({ onNext }: PageProps) {
             <SubTitle>Tirante deslizante</SubTitle>
             <Bullets
               items={[
+                "Enquanto segura a extremidade dos tirantes com as mãos, deslize a peça facial para encaixar no seu rosto.",
                 "Encaixe as presilhas atrás do pescoço.",
                 "Ajuste os tirantes, puxando as extremidades dos elásticos até obter um encaixe firme.",
                 "A tensão dos tirantes pode ser diminuída empurrando as presilhas para fora: uso correto.",
@@ -202,8 +202,8 @@ export function Page12({ onNext }: PageProps) {
           </Panel>
           <Figure
             src={tiranteDeslizante}
-            alt="Sequência A, B e C de colocação do respirador de manutenção com tirante deslizante"
-            caption="Tirante deslizante: A, B e C"
+            alt="Sequência de ajuste das presilhas do tirante deslizante, vista de trás da cabeça, e vista lateral do resultado final"
+            imgClassName={PHOTO_IMG_CLASS}
           />
         </div>
       </div>
