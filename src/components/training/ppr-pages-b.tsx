@@ -20,8 +20,9 @@ import { NR6_ITENS, TermoPage } from "./pca-pages";
 import pulmaoNormal from "@/assets/pulmao-normal-pdf.jpg";
 import pulmaoPneumoconiose from "@/assets/pulmao-pneumoconiose-pdf.jpg";
 import pulmaoRaioX from "@/assets/pulmao-raiox-pdf.jpg";
-import respiradores from "@/assets/ppr-respiradores.svg";
 import colocacaoDescartavel from "@/assets/colocacao-descartavel-pdf.jpg";
+import eprSemifacial from "@/assets/epr-semifacial-pdf.jpg";
+import eprPff from "@/assets/epr-pff-pdf.jpg";
 import retirada from "@/assets/retirada-pdf.jpg";
 import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.webp";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.webp";
@@ -714,8 +715,26 @@ export function Page16({
     <TermoPage
       track="PPR"
       paragrafos={TERMO_PPR}
-      imagem={respiradores}
-      imagemAlt="Respiradores de proteção respiratória"
+      imagem={eprSemifacial}
+      imagemAlt="Respirador reutilizável semifacial com filtros e peça facial filtrante descartável"
+      imagemNode={
+        <div className="rounded-xl border border-border bg-card p-3 shadow-panel">
+          <div className="grid grid-cols-2 gap-2">
+            <img
+              src={eprSemifacial}
+              alt="Respirador reutilizável semifacial com filtros/cartuchos laterais"
+              loading="lazy"
+              className="aspect-square w-full rounded-lg border-2 border-sky-200 bg-white object-contain"
+            />
+            <img
+              src={eprPff}
+              alt="Peça facial filtrante descartável"
+              loading="lazy"
+              className="aspect-square w-full rounded-lg border-2 border-sky-200 bg-white object-contain"
+            />
+          </div>
+        </div>
+      }
       nome={nome}
       matricula={matricula}
       onNext={onNext}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import {
   AdvanceButton,
@@ -650,6 +650,7 @@ export function TermoPage({
   paragrafos,
   imagem,
   imagemAlt,
+  imagemNode,
   nome,
   matricula,
   onNext,
@@ -660,6 +661,8 @@ export function TermoPage({
   paragrafos: string[];
   imagem: string;
   imagemAlt: string;
+  /** Sobrepõe a imagem padrão por uma composição customizada (ex.: duas fotos lado a lado). */
+  imagemNode?: ReactNode;
   nome: string;
   matricula: string;
   onNext: () => void;
@@ -705,7 +708,7 @@ export function TermoPage({
             ))}
           </ul>
         </Panel>
-        <Figure src={imagem} alt={imagemAlt} />
+        {imagemNode ?? <Figure src={imagem} alt={imagemAlt} />}
       </div>
 
       <SectionTitle>Confirme seus dados</SectionTitle>
