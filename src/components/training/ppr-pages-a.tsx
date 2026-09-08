@@ -15,9 +15,9 @@ import {
 } from "./kit";
 
 import pintura from "@/assets/pintura-solvente.jpg";
-import eprFacialInteira from "@/assets/epr-facial-inteira.svg";
-import eprSemifacial from "@/assets/epr-semifacial.svg";
-import eprPff from "@/assets/epr-pff.svg";
+import eprFacialInteira from "@/assets/epr-facial-inteira-pdf.jpg";
+import eprSemifacial from "@/assets/epr-semifacial-pdf.jpg";
+import eprPff from "@/assets/epr-pff-pdf.jpg";
 import eprCartuchoQuimico from "@/assets/epr-cartucho-quimico.svg";
 import eprFiltroMecanico from "@/assets/epr-filtro-mecanico.svg";
 import respiradores from "@/assets/ppr-respiradores.svg";
@@ -530,7 +530,10 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
         {TIPOS_EPR.map((t) => (
-          <figure key={t.nome} className="rounded-xl border border-border bg-card p-3 shadow-panel">
+          <figure
+            key={t.nome}
+            className="rounded-xl border-2 border-sky-200 bg-card p-3 shadow-panel"
+          >
             <img
               src={t.img}
               alt={t.alt}
