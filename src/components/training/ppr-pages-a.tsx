@@ -512,19 +512,22 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
               onClick={onClick}
               className="rounded-xl border-2 border-sky-200 bg-card p-3 text-left shadow-panel"
             >
-              <div className="mx-auto flex min-h-32 w-full items-center justify-center sm:min-h-36">
+              <div className="relative mx-auto flex h-40 w-full items-center justify-center sm:h-44">
+                <img
+                  src={t.img}
+                  alt={t.alt}
+                  loading="lazy"
+                  className={`h-full w-full object-contain transition-opacity ${
+                    aberto ? "opacity-[0.46]" : "opacity-100"
+                  }`}
+                />
                 {aberto ? (
-                  <span className="px-1 text-center text-[11px] leading-snug font-medium text-foreground">
-                    {t.texto}
-                  </span>
-                ) : (
-                  <img
-                    src={t.img}
-                    alt={t.alt}
-                    loading="lazy"
-                    className="h-32 w-full object-contain sm:h-36"
-                  />
-                )}
+                  <div className="absolute inset-0 flex items-center justify-center p-1">
+                    <span className="rounded-md bg-background/85 px-2 py-1.5 text-center text-[11px] leading-snug font-medium text-foreground shadow-sm">
+                      {t.texto}
+                    </span>
+                  </div>
+                ) : null}
               </div>
               <p className="mt-2 text-center text-xs font-semibold text-brand-deep">{t.nome}</p>
             </button>
