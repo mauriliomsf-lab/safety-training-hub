@@ -7,6 +7,7 @@ import {
   Figure,
   PageShell,
   Panel,
+  PHOTO_IMG_CLASS,
   SectionTitle,
   SignatureCanvas,
   SubTitle,
@@ -16,7 +17,8 @@ import {
 } from "./kit";
 
 import anatomia from "@/assets/anatomia-ouvido.jpg";
-import colocacao from "@/assets/colocacao-abafador-nuca.svg";
+import abafadorAjusteNuca from "@/assets/abafador-ajuste-nuca.jpg";
+import abafadorCapacetePdf from "@/assets/abafador-capacete-pdf.jpg";
 import higiene from "@/assets/higiene-abafador-pano.svg";
 import higienePlugs from "@/assets/higiene-plugs.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
@@ -321,11 +323,18 @@ export function Page03({ onNext }: PageProps) {
 
       <SectionTitle>Uso e colocação</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Figure
-          src={colocacao}
-          alt="Pessoa ajustando abafador auditivo tipo arco, vista da nuca"
-          caption="Ajuste do abafador tipo arco"
-        />
+        <div className="space-y-4">
+          <Figure
+            src={abafadorAjusteNuca}
+            alt="Pessoa ajustando abafador auditivo tipo arco, vista da nuca"
+            imgClassName={PHOTO_IMG_CLASS}
+          />
+          <Figure
+            src={abafadorCapacetePdf}
+            alt="Abafador auditivo acoplado ao capacete de segurança"
+            imgClassName={PHOTO_IMG_CLASS}
+          />
+        </div>
         <div className="space-y-4">
           <Panel>
             <Bullets

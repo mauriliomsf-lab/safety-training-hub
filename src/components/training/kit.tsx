@@ -175,16 +175,23 @@ export function Bullets({ items }: { items: ReactNode[] }) {
   );
 }
 
+/** Borda suave azul-clara e cantos arredondados para fotos recortadas do PDF de referência. */
+export const PHOTO_IMG_CLASS =
+  "w-full rounded-xl border-2 border-sky-200 object-cover shadow-panel";
+
 export function Figure({
   src,
   alt,
   caption,
   className = "",
+  imgClassName = "",
 }: {
   src: string;
   alt: string;
   caption?: string;
   className?: string;
+  /** Sobrepõe borda/proporção do <img> (ex.: fotos recortadas do PDF de referência). */
+  imgClassName?: string;
 }) {
   return (
     <figure className={className}>
@@ -192,7 +199,9 @@ export function Figure({
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full rounded-xl border border-border object-cover shadow-panel"
+        className={
+          imgClassName || "w-full rounded-xl border border-border object-cover shadow-panel"
+        }
       />
       {caption ? (
         <figcaption className="mt-1 text-center text-xs text-muted-foreground">
