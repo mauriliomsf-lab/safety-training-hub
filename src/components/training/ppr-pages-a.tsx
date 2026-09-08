@@ -489,7 +489,7 @@ function FotoRisco({ src, alt, legenda }: { src: string; alt: string; legenda: s
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full rounded-lg border border-border bg-background object-contain shadow-panel"
+        className="aspect-square w-full rounded-lg border-2 border-sky-200 bg-background object-contain shadow-panel"
       />
       <figcaption className="mt-1 text-center text-[10px] leading-tight text-muted-foreground">
         {legenda}
