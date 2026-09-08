@@ -8,6 +8,8 @@ import {
   PageShell,
   Panel,
   PHOTO_IMG_CLASS,
+  PHOTO_SQUARE_IMG_CLASS,
+  PHOTO_SQUARE_WRAP_CLASS,
   SectionTitle,
   SubTitle,
   useReadingTimer,
@@ -15,7 +17,9 @@ import {
 } from "./kit";
 import { NR6_ITENS, TermoPage } from "./pca-pages";
 
-import pulmoes from "@/assets/pulmoes.svg";
+import pulmaoNormal from "@/assets/pulmao-normal-pdf.jpg";
+import pulmaoPneumoconiose from "@/assets/pulmao-pneumoconiose-pdf.jpg";
+import pulmaoRaioX from "@/assets/pulmao-raiox-pdf.jpg";
 import respiradores from "@/assets/ppr-respiradores.svg";
 import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
 import retirada from "@/assets/retirada-pdf.jpg";
@@ -494,11 +498,29 @@ function UsoIncorretoBlocos() {
         imediatos, como náuseas, dores de cabeça, vômitos, desmaios entre outros, seja a aparição, a
         longo prazo, de doenças pulmonares.
       </Panel>
-      <Figure
-        className="mt-4"
-        src={pulmoes}
-        alt="Pulmão normal, pulmão com pneumoconiose e raio X de pulmão com pneumonite"
-      />
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <Figure
+          className={PHOTO_SQUARE_WRAP_CLASS}
+          imgClassName={PHOTO_SQUARE_IMG_CLASS}
+          src={pulmaoNormal}
+          alt="Pulmão normal"
+          caption="Pulmão normal"
+        />
+        <Figure
+          className={PHOTO_SQUARE_WRAP_CLASS}
+          imgClassName={PHOTO_SQUARE_IMG_CLASS}
+          src={pulmaoPneumoconiose}
+          alt="Pulmão com pneumoconiose"
+          caption="Pulmão com pneumoconiose"
+        />
+        <Figure
+          className={PHOTO_SQUARE_WRAP_CLASS}
+          imgClassName={PHOTO_SQUARE_IMG_CLASS}
+          src={pulmaoRaioX}
+          alt="Raio X de pulmão com pneumonite"
+          caption="Raio X de pulmão com pneumonite"
+        />
+      </div>
 
       <SectionTitle>Omissão do Uso</SectionTitle>
       <p className="mb-3 text-sm">De acordo com as normativas nacionais a</p>

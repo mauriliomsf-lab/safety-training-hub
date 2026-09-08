@@ -179,6 +179,15 @@ export function Bullets({ items }: { items: ReactNode[] }) {
 export const PHOTO_IMG_CLASS =
   "w-full rounded-xl border-2 border-sky-200 object-cover shadow-panel";
 
+/**
+ * Caixa quadrada de tamanho fixo para pares de imagens lado a lado: garante que
+ * ambas fiquem com exatamente o mesmo tamanho, sem cortar nenhuma parte da imagem
+ * original (object-contain), qualquer que seja a proporção de cada foto.
+ */
+export const PHOTO_SQUARE_WRAP_CLASS = "mx-auto mb-3 aspect-square max-w-[260px]";
+export const PHOTO_SQUARE_IMG_CLASS =
+  "size-full rounded-xl border-2 border-sky-200 bg-white object-contain shadow-panel";
+
 export function Figure({
   src,
   alt,
