@@ -19,8 +19,10 @@ import {
 import anatomia from "@/assets/anatomia-ouvido.jpg";
 import abafadorAjusteNuca from "@/assets/abafador-ajuste-nuca.jpg";
 import abafadorCapacetePdf from "@/assets/abafador-capacete-pdf.jpg";
-import higiene from "@/assets/higiene-abafador-pano-pdf.jpg";
 import higienePlugs from "@/assets/higiene-plugs-pdf.jpg";
+import abafadorEtapa1 from "@/assets/abafador-etapa1-pdf.jpg";
+import abafadorEtapa2 from "@/assets/abafador-etapa2-pdf.jpg";
+import abafadorEtapa3 from "@/assets/abafador-etapa3-pdf.jpg";
 import protetores from "@/assets/pca-protetores.jpg";
 import plugSequencia from "@/assets/plug-sequencia.jpg";
 import protArco from "@/assets/prot-arco.jpg";
@@ -461,30 +463,40 @@ export function Page04({ onNext }: PageProps) {
     >
       <SectionTitle>Inspeção e Manutenção</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-[1fr_1fr]">
-        <div className="space-y-4">
+        <div className="grid grid-cols-3 gap-2">
           <Figure
-            src={higiene}
-            alt="Mãos limpando o abafador auditivo com pano úmido"
+            src={abafadorEtapa1}
+            alt="Etapa 1: retirada da almofada externa do abafador auditivo"
             imgClassName={PHOTO_IMG_CLASS}
           />
           <Figure
-            src={higienePlugs}
-            alt="Mãos lavando plugs de silicone em água corrente"
+            src={abafadorEtapa2}
+            alt="Etapa 2: limpeza das partes do abafador auditivo com pano"
+            imgClassName={PHOTO_IMG_CLASS}
+          />
+          <Figure
+            src={abafadorEtapa3}
+            alt="Etapa 3: peças do abafador auditivo desmontadas"
             imgClassName={PHOTO_IMG_CLASS}
           />
         </div>
-        <div className="space-y-4">
-          <Panel>
-            Retire com cuidado, as almofadas externas (se forem removíveis). Limpe com um pano
-            úmido, as partes externas do abafador e as almofadas, delicadamente. Seque com papel
-            toalha.
-          </Panel>
-          <Panel>
-            Lave e enxágue os plugs de silicone em água fria. Remova o excesso de umidade com uma
-            folha de papel-toalha para acelerar o processo de secagem. Deixe os protetores secarem
-            ao ar livre.
-          </Panel>
-        </div>
+        <Panel>
+          Retire com cuidado, as almofadas externas (se forem removíveis). Limpe com um pano úmido,
+          as partes externas do abafador e as almofadas, delicadamente. Seque com papel toalha.
+        </Panel>
+      </div>
+
+      <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_1fr]">
+        <Figure
+          src={higienePlugs}
+          alt="Mãos lavando plugs de silicone em água corrente"
+          imgClassName={PHOTO_IMG_CLASS}
+        />
+        <Panel>
+          Lave e enxágue os plugs de silicone em água fria. Remova o excesso de umidade com uma
+          folha de papel-toalha para acelerar o processo de secagem. Deixe os protetores secarem ao
+          ar livre.
+        </Panel>
       </div>
 
       <SectionTitle>Inspeção, conservação e troca</SectionTitle>
