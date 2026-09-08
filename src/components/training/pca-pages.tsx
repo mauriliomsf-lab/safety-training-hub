@@ -357,18 +357,11 @@ export function Page03({ onNext }: PageProps) {
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="space-y-4">
-          <Figure
-            src={plugSequencia}
-            alt="Sequência A, B, C e D de colocação do plug no canal auditivo, com indicação de certo e errado"
-            caption="Colocação do plug: A, B, C e D (certo e errado)"
-          />
-          <Figure
-            src={protetores}
-            alt="Protetores auditivos tipo plug"
-            caption="Colocação do plug"
-          />
-        </div>
+        <Figure
+          src={plugSequencia}
+          alt="Sequência A, B, C e D de colocação do plug no canal auditivo, com indicação de certo e errado"
+          caption="Colocação do plug: A, B, C e D (certo e errado)"
+        />
         <Panel>
           <Bullets
             items={[
