@@ -21,7 +21,7 @@ import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
 import retirada from "@/assets/retirada-pdf.jpg";
 import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.jpg";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.jpg";
-import testeNegativa from "@/assets/teste-pressao-negativa.svg";
+import testeNegativa from "@/assets/teste-pressao-negativa-pdf.jpg";
 import testePositiva from "@/assets/teste-pressao-positiva.svg";
 import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo.svg";
 import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo.svg";
@@ -214,6 +214,7 @@ export function Page12({ onNext }: PageProps) {
           <SubTitle>Teste de Pressão Negativa</SubTitle>
           <Figure
             className="mx-auto mb-3 max-w-[260px]"
+            imgClassName={PHOTO_IMG_CLASS}
             src={testeNegativa}
             alt="As duas mãos cobrindo as faces dos dois cartuchos do respirador"
           />
@@ -227,6 +228,7 @@ export function Page12({ onNext }: PageProps) {
           <SubTitle>Teste de Pressão Positiva</SubTitle>
           <Figure
             className="mx-auto mb-3 max-w-[260px]"
+            imgClassName={PHOTO_IMG_CLASS}
             src={testePositiva}
             alt="Palma da mão sobre a válvula de exalação do respirador"
           />
