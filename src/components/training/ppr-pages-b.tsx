@@ -310,14 +310,14 @@ export const ENSAIOS_VEDACAO = [
     ico: ensaioQualitativo,
     icoAlt: "Pessoa com touca de teste e agente aplicado próximo ao rosto",
     texto:
-      "Utiliza a própria percepção do usuário a um agente de teste (como sacarina, Bitrex ou fumaça irritante) borrifado dentro de uma touca. Se o usuário não perceber o gosto, odor ou irritação, considera-se a vedação satisfatória. É um método subjetivo, que não depende de equipamento de medição.",
+      "O ensaio de vedação qualitativo verifica se o respirador consegue manter uma vedação adequada ao rosto por meio da percepção do sabor. Inicialmente, verifica-se se a pessoa consegue identificar o sabor da sacarina. Depois, utilizando o respirador, ela é submetida ao aerossol de teste enquanto realiza movimentos e atividades padronizados. Se perceber o sabor da sacarina durante o ensaio, isso indica que houve penetração do agente para o interior da peça facial e o resultado é considerado reprovado. Se não perceber o sabor, o respirador é aprovado.",
   },
   {
     nome: "Ensaio de Vedação Quantitativo",
     ico: ensaioQuantitativo,
     icoAlt: "Manequim com respirador conectado por mangueira a um aparelho de medição",
     texto:
-      "Utiliza equipamento de medição (como um contador de partículas) que compara a concentração de partículas no ar ambiente e dentro da peça facial, calculando numericamente o fator de vedação obtido. É um método objetivo, mais preciso que o qualitativo.",
+      "Este ensaio de vedação utiliza um equipamento para avaliar quantitativamente a vedação do respirador. Diferentemente do método qualitativo, neste é medida a concentração de substâncias no ambiente (inertes, não prejudiciais, e dispersas no ar) e a concentração que consegue penetrar para o interior do respirador, determinando um fator de vedação. Durante o ensaio, a pessoa realiza exercícios padronizados, permitindo verificar a vedação em diferentes situações de uso. Ao final, o equipamento apresenta um resultado numérico e indica se o respirador atingiu o critério de aprovação estabelecido para aquele tipo de peça facial.",
   },
 ];
 
