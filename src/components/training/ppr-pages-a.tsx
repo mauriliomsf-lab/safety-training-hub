@@ -23,7 +23,6 @@ import eprSemifacial from "@/assets/epr-semifacial-pdf.jpg";
 import eprPff from "@/assets/epr-pff-pdf.jpg";
 import eprCartuchoQuimico from "@/assets/epr-cartucho-quimico.svg";
 import eprFiltroMecanico from "@/assets/epr-filtro-mecanico.svg";
-import respiradores from "@/assets/ppr-respiradores.svg";
 import solda from "@/assets/manutencao-solda.jpg";
 import icoRiscoBiologico from "@/assets/ico-risco-biologico.png";
 import icoRiscoErgonomico from "@/assets/ico-risco-ergonomico.png";
@@ -958,12 +957,6 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
           </p>
         ) : null}
       </Panel>
-
-      <Figure
-        className="mx-auto mt-4 max-w-md"
-        src={respiradores}
-        alt="Respirador descartável e semifacial de manutenção"
-      />
     </PageShell>
   );
 }
