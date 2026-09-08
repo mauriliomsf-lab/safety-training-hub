@@ -158,7 +158,7 @@ export function Page06({ onNext, onBackToStart }: PageProps) {
             <SubTitle>+ Riscos Ocupacionais</SubTitle>
             <p className="text-sm">Operação e Atividades com</p>
             <p className="font-display text-base font-semibold text-destructive">
-              Perigo - controle
+              Perigo com - controle
             </p>
           </Panel>
           <SetaDiagonal sentido="cima-direita" />
@@ -168,7 +168,7 @@ export function Page06({ onNext, onBackToStart }: PageProps) {
           <Panel className="flex-1">
             <SubTitle>Riscos Ocupacionais ‘compatíveis’</SubTitle>
             <p className="text-sm">Operação e Atividades com</p>
-            <p className="font-display text-base font-semibold text-ok">Perigo + controle</p>
+            <p className="font-display text-base font-semibold text-ok">Perigo com + controle</p>
           </Panel>
         </div>
       </div>
