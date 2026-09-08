@@ -21,7 +21,7 @@ import pulmaoNormal from "@/assets/pulmao-normal-pdf.jpg";
 import pulmaoPneumoconiose from "@/assets/pulmao-pneumoconiose-pdf.jpg";
 import pulmaoRaioX from "@/assets/pulmao-raiox-pdf.jpg";
 import respiradores from "@/assets/ppr-respiradores.svg";
-import colocacaoDescartavel from "@/assets/ppr-colocacao-descartavel.svg";
+import colocacaoDescartavel from "@/assets/colocacao-descartavel-pdf.jpg";
 import retirada from "@/assets/retirada-pdf.jpg";
 import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.webp";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.webp";
@@ -124,6 +124,7 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
         </Panel>
         <Figure
           src={colocacaoDescartavel}
+          imgClassName={PHOTO_IMG_CLASS}
           alt="Sequência A, B, C e D de colocação do respirador descartável"
           caption="Colocação do respirador descartável: A, B, C e D"
         />
