@@ -354,7 +354,7 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
               width={512}
               height={512}
               loading="lazy"
-              className="mx-auto mb-2 size-24 rounded-xl border-2 border-sky-200 object-cover shadow-panel"
+              className="mx-auto mb-2 size-24 rounded-xl border-2 border-sky-200 bg-white object-contain shadow-panel"
             />
             <p className="mb-1 text-center text-xs font-semibold text-brand-deep">Etapa {i + 1}</p>
             {etapa.texto}
@@ -380,7 +380,7 @@ export function Page13({ onNext, onBackToStart }: PageProps) {
                 width={400}
                 height={400}
                 loading="lazy"
-                className="mx-auto mb-2 size-28 rounded-xl border-2 border-sky-200 object-cover shadow-panel"
+                className="mx-auto mb-2 size-28 rounded-xl border-2 border-sky-200 bg-white object-contain shadow-panel"
               />
               <button
                 type="button"
