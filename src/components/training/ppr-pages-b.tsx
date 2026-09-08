@@ -27,7 +27,6 @@ import retirada from "@/assets/retirada-pdf.jpg";
 import tirantePadrao from "@/assets/ppr-manutencao-tirante-padrao-pdf.webp";
 import tiranteDeslizante from "@/assets/ppr-manutencao-tirante-deslizante-pdf.webp";
 import testeNegativa from "@/assets/teste-pressao-negativa-pdf.jpg";
-import testePositiva from "@/assets/teste-pressao-positiva.svg";
 import testePositivaPdf from "@/assets/teste-pressao-positiva-pdf.jpg";
 import ensaioQualitativo from "@/assets/ensaio-vedacao-qualitativo-pdf.jpg";
 import ensaioQuantitativo from "@/assets/ensaio-vedacao-quantitativo-pdf.jpg";
@@ -132,19 +131,12 @@ export function Page11({ onNext, onBackToStart }: PageProps) {
       </div>
 
       <SectionTitle>Verificação da Vedação</SectionTitle>
-      <div className="grid items-start gap-4 sm:grid-cols-[1fr_220px]">
-        <Panel tone="ppr">
-          <SubTitle>Teste de Pressão Positiva</SubTitle>
-          Cubra a maior parte do respirador e expire. Se houver vazamento de ar em volta do nariz,
-          reajuste o grampo nasal. Se houver vazamento de ar pelas bordas do respirador, reajuste
-          sua posição.
-        </Panel>
-        <Figure
-          src={testePositiva}
-          alt="Mão espalmada sobre a válvula de exalação do respirador"
-          caption="Teste de Pressão Positiva"
-        />
-      </div>
+      <Panel tone="ppr">
+        <SubTitle>Teste de Pressão Positiva</SubTitle>
+        Cubra a maior parte do respirador e expire. Se houver vazamento de ar em volta do nariz,
+        reajuste o grampo nasal. Se houver vazamento de ar pelas bordas do respirador, reajuste sua
+        posição.
+      </Panel>
     </PageShell>
   );
 }
