@@ -1,16 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Page02, Page03, Page04, Page05 } from "@/components/training/pca-pages";
 import { Page06, Page07, Page08, Page09, Page10 } from "@/components/training/ppr-pages-a";
-import {
-  Page11,
-  Page12,
-  Page13,
-  Page14,
-  Page15,
-  Page16,
-} from "@/components/training/ppr-pages-b";
+import { Page11, Page12, Page13, Page14, Page15, Page16 } from "@/components/training/ppr-pages-b";
 import type { Track } from "@/components/training/kit";
 
 import protetores from "@/assets/select-pca.jpg";
@@ -47,6 +40,14 @@ function TreinamentoApp() {
   const [respostasPPR, setRespostasPPR] = useState<Record<number, number>>({});
 
   const seq = track === "PCA" ? PCA_SEQ : PPR_SEQ;
+
+  // Reinicia a rolagem no topo a cada troca de tela. Dependência só em `page`:
+  // respostas do teste de conhecimento (Páginas 4, 14 e 15) não estão nessa
+  // lista, então responder uma pergunta nunca dispara este efeito — a
+  // rolagem do usuário durante o teste fica preservada.
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [page]);
 
   const reiniciarSessao = () => {
     setTrack(null);
