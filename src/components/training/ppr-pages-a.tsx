@@ -306,19 +306,9 @@ export function Page07({ onNext }: PageProps) {
 }
 
 /* ------------------------------- Página 8 ------------------------------- */
-export function Page08({ onNext, onBackToStart }: PageProps) {
-  const podeVoltar = useReadingTimer(6000);
+export function Page08({ onNext }: PageProps) {
   return (
-    <PageShell
-      title={TITLE}
-      track="PPR"
-      footer={
-        <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <AdvanceButton onClick={onNext} />
-        </>
-      }
-    >
+    <PageShell title={TITLE} track="PPR" footer={<AdvanceButton onClick={onNext} />}>
       <SectionTitle>Hierarquia das medidas de proteção</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-3">
         <Panel tone="ppr">
@@ -470,8 +460,7 @@ function FotoRisco({ src, alt, legenda }: { src: string; alt: string; legenda: s
   );
 }
 
-export function Page09({ onNext, onBackToStart }: PageProps) {
-  const podeVoltar = useReadingTimer(6000);
+export function Page09({ onNext }: PageProps) {
   const [facialAberta, setFacialAberta] = useState(false);
   const [duplaAberta, setDuplaAberta] = useState(false);
   const [infoAberta, setInfoAberta] = useState(false);
@@ -484,12 +473,7 @@ export function Page09({ onNext, onBackToStart }: PageProps) {
     <PageShell
       title={TITLE}
       track="PPR"
-      footer={
-        <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <AdvanceButton onClick={onNext} disabled={!podeAvancar} />
-        </>
-      }
+      footer={<AdvanceButton onClick={onNext} disabled={!podeAvancar} />}
     >
       <SectionTitle>Escolha do EPR — Modelo</SectionTitle>
       <Panel tone="ppr">
@@ -770,8 +754,7 @@ const OPCOES_FPA: Array<{ label: string; valor: number; img: string; alt: string
   },
 ];
 
-export function Page10({ onNext, onBackToStart }: PageProps) {
-  const podeVoltar = useReadingTimer(6000);
+export function Page10({ onNext }: PageProps) {
   const [lado, setLado] = useState<Lado | null>(null);
   const [concentracao, setConcentracao] = useState("");
   const [substancia, setSubstancia] = useState<string | null>(null);
@@ -804,12 +787,7 @@ export function Page10({ onNext, onBackToStart }: PageProps) {
     <PageShell
       title={TITLE}
       track="PPR"
-      footer={
-        <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <AdvanceButton onClick={onNext} disabled={resultado === null} />
-        </>
-      }
+      footer={<AdvanceButton onClick={onNext} disabled={resultado === null} />}
     >
       <SectionTitle>FPMR — Fator de proteção mínimo requerido</SectionTitle>
       <Panel tone="ppr">

@@ -116,17 +116,17 @@ function TreinamentoApp() {
     case 7:
       return <Page07 onNext={next} />;
     case 8:
-      return <Page08 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page08 onNext={next} />;
     case 9:
-      return <Page09 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page09 onNext={next} />;
     case 10:
-      return <Page10 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page10 onNext={next} />;
     case 11:
-      return <Page11 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page11 onNext={next} />;
     case 12:
       return <Page12 onNext={next} />;
     case 13:
-      return <Page13 onNext={next} onBackToStart={reiniciarSessao} />;
+      return <Page13 onNext={next} />;
     case 14:
       return <Page14 onNext={next} respostas={respostasPPR} onResponder={responder} />;
     case 15:

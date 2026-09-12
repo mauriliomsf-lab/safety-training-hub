@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import {
   AdvanceButton,
-  BackToStartButton,
   Bullets,
   Figure,
   PageShell,
@@ -38,19 +37,9 @@ import hig4 from "@/assets/hig-4-remontar-pdf.jpg";
 const TITLE = "Treinamento de proteção respiratória";
 
 /* ------------------------------ Página 11 ------------------------------- */
-export function Page11({ onNext, onBackToStart }: PageProps) {
-  const podeVoltar = useReadingTimer(6000);
+export function Page11({ onNext }: PageProps) {
   return (
-    <PageShell
-      title={TITLE}
-      track="PPR"
-      footer={
-        <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <AdvanceButton onClick={onNext} />
-        </>
-      }
-    >
+    <PageShell title={TITLE} track="PPR" footer={<AdvanceButton onClick={onNext} />}>
       <SectionTitle>Adequações a serem observados para escolha do EPR</SectionTitle>
       <div className="grid gap-4 sm:grid-cols-3">
         <Panel tone="ppr">
@@ -321,20 +310,10 @@ export const ENSAIOS_VEDACAO = [
   },
 ];
 
-export function Page13({ onNext, onBackToStart }: PageProps) {
-  const podeVoltar = useReadingTimer(6000);
+export function Page13({ onNext }: PageProps) {
   const [ensaioAberto, setEnsaioAberto] = useState<number | null>(null);
   return (
-    <PageShell
-      title={TITLE}
-      track="PPR"
-      footer={
-        <>
-          <BackToStartButton enabled={podeVoltar} onClick={onBackToStart} />
-          <AdvanceButton onClick={onNext} />
-        </>
-      }
-    >
+    <PageShell title={TITLE} track="PPR" footer={<AdvanceButton onClick={onNext} />}>
       <SectionTitle>Higienização</SectionTitle>
       <p className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground">
         QUANDO SELECIONADO UM RESPIRADOR DE MANUTENÇÃO
