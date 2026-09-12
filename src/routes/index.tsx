@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Page02, Page03, Page04, Page05 } from "@/components/training/pca-pages";
 import { Page06, Page07, Page08, Page09, Page10 } from "@/components/training/ppr-pages-a";
@@ -42,10 +42,23 @@ function TreinamentoApp() {
   const seq = track === "PCA" ? PCA_SEQ : PPR_SEQ;
 
   // Reinicia a rolagem no topo a cada troca de tela. Dependência só em `page`:
-  // respostas do teste de conhecimento (Páginas 4, 14 e 15) não estão nessa
-  // lista, então responder uma pergunta nunca dispara este efeito — a
-  // rolagem do usuário durante o teste fica preservada.
+  // respostas do teste de conhecimento não estão nessa lista, então responder
+  // uma pergunta nunca dispara este efeito — a rolagem do usuário durante o
+  // teste fica preservada.
+  //
+  // Exceção: Página 14 → 15 é a mesma sequência contínua de perguntas do
+  // teste de conhecimento do PPR (ambas repetem o mesmo bloco
+  // UsoIncorretoBlocos antes das perguntas), então resetar o topo aqui
+  // forçaria o usuário a rolar de novo por conteúdo repetido. As duas
+  // páginas têm o mesmo conteúdo até o ponto das perguntas, então manter a
+  // posição de rolagem atual já o deixa exatamente onde as próximas
+  // perguntas começam.
+  const paginaAnterior = useRef(page);
   useEffect(() => {
+    const anterior = paginaAnterior.current;
+    paginaAnterior.current = page;
+    const continuacaoDoTeste = anterior === 14 && page === 15;
+    if (continuacaoDoTeste) return;
     window.scrollTo({ top: 0 });
   }, [page]);
 
