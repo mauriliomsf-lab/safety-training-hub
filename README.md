@@ -308,6 +308,36 @@ As duas trilhas (PCA e PPR) funcionam de ponta a ponta, com os ajustes visuais d
 
 APÓS CONCLUIR A FASE 3: PARE. Informe que o treinamento está completo e pronto para revisão final.
 
+=====================================================
+
+ATUALIZAÇÃO POSTERIOR — Botão de retorno ("←")
+
+=====================================================
+
+Decisão de negócio do responsável do projeto, que substitui deliberadamente a
+regra original descrita acima ("Páginas 2, 4, 6, 8, 9, 10, 11, 13"): o botão
+de retorno circular azul deixa de existir ao longo de todo o percurso do
+treinamento.
+
+**Nova regra**: o botão "←" existe **apenas** na primeira tela de conteúdo de
+cada trilha — Página 2 (PCA) e Página 6 (PPR) — logo após a seleção do
+módulo. Em todas as demais telas de ambos os treinamentos, o botão não
+existe mais, mesmo nas que a regra original previa (ex.: Página 4/Fisiologia
+da audição no PCA e as demais páginas do PPR que citavam "Riscos
+Ocupacionais" e afins).
+
+Onde ele continua existindo (Página 2 e Página 6), a regra dos 6 segundos de
+leitura mínima antes de habilitar o botão permanece inalterada.
+
+**Motivo**: um botão de retorno disponível ao longo de todo o percurso
+permite que o usuário "vá e volte" livremente entre seções sem compromisso,
+favorecendo navegação exploratória em vez de retenção de conteúdo — o que
+compromete o objetivo do treinamento. A partir desta decisão, o botão existe
+apenas para corrigir o erro de ter entrado na trilha errada (PCA/PPR) logo no
+início; depois disso, a responsabilidade de concluir o percurso é do
+usuário, e sair implica perder o progresso (o comportamento de reinício
+total ao voltar — nome, matrícula e respostas zerados — permanece o mesmo).
+
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable

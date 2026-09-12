@@ -15,3 +15,6 @@
 
 ## Pendente (aguardando liberação do PPR)
 - [x] Página 7 e 9: clique opcional deve fechar o ambiente de leitura no segundo clique
+
+## Navegação — botão de retorno ("←")
+- [x] Restringir o botão de retorno a apenas Página 2 (PCA) e Página 6 (PPR), removendo-o de todas as demais telas (decisão de negócio: evitar navegação exploratória "vai e volta" que compromete a retenção de conteúdo do treinamento; ver README para o texto completo da regra e do motivo)
